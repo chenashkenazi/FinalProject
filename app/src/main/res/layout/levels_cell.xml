@@ -30,21 +30,21 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_levels_star_default"
+            android:src="@drawable/levels_selector_star"
             android:id="@+id/first_star"/>
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_levels_star_default"
+            android:src="@drawable/levels_selector_star"
             android:id="@+id/second_star"/>
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_levels_star_default"
+            android:src="@drawable/levels_selector_star"
             android:id="@+id/third_star"/>
 
     </LinearLayout>
