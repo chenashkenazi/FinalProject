@@ -2,15 +2,17 @@ package com.example.finalproject;
 
 /*Here we're going to define the Sub-Level object*/
 
-public class SubLevel {
-    private int subLevelNumber; //exp: the first level in level1
+public class SubLevel{
+    //Parcelable - to package our objects for our custom class and attach that to a bundle
+
+    private int subLevelNumber; //the index in Level[]. exp: the first level in level1
     private int stars; //0=not passed the level, 1-3
     private boolean isComplete; //status
 
-    public SubLevel(int subLevelNumber, int stars) {
+    public SubLevel(int subLevelNumber) {
         this.subLevelNumber = subLevelNumber;
-        this.stars = stars;
-        isComplete = false;
+        this.stars = 0;
+        this.isComplete = false;
     }
 
     public int getSubLevelNumber() {
@@ -36,4 +38,5 @@ public class SubLevel {
     public void setComplete(boolean complete) {
         isComplete = complete;
     }
+
 }

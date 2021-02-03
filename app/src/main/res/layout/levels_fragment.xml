@@ -10,20 +10,21 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/level_number"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:textSize="30sp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:layout_gravity="top|center"/>
 
     <!--Buttons to levels here (4x4)-->
-    <GridLayout
+
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:rowCount="4"
-        android:columnCount="4"
-        android:id="@+id/levels_grid_view">
-
-    </GridLayout>
+        android:layout_gravity="center"
+        android:id="@+id/levels_grid_view"
+        android:numColumns="4"
+        android:gravity="center"/>
 
 
 </LinearLayout>

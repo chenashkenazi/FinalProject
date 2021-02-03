@@ -19,25 +19,28 @@
         android:layout_height="match_parent"
         android:id="@+id/body_hsv"
         android:layout_below="@+id/header_tv"
-        android:layout_above="@+id/bottom_btn"
+        android:layout_above="@+id/levels_play_btn"
         android:orientation="vertical">
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9"
-            android:id="@+id/view_pager">
+            android:id="@+id/levels_view_pager"
+            android:layout_gravity="center">
 
-        </androidx.viewpager2.widget.ViewPager2>
+        </androidx.viewpager.widget.ViewPager>
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:id="@+id/levels_tab_layout"
             app:tabBackground="@drawable/levels_tab_selector"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
-            app:tabMaxWidth="10dp">
+            app:tabMaxWidth="10dp"
+            android:layoutDirection="ltr">
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -46,7 +49,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bottom_btn"
+        android:id="@+id/levels_play_btn"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         android:gravity="center"
