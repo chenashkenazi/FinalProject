@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical"
-    android:weightSum="3">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,20 +61,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Play"
-                android:textAllCaps="false"
-                android:layout_marginHorizontal="30dp"
                 android:id="@+id/play_btn"
-                />
+                style="@style/ButtonMainPlay"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Reset Game"
-                android:textAllCaps="false"
-                android:layout_marginHorizontal="30dp"
                 android:id="@+id/reset_game_btn"
-                android:layout_below="@+id/play_btn"/>
-
+                style="@style/ButtonMainReset"/>
         </LinearLayout>
 
 

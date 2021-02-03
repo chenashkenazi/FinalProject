@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -115,9 +116,9 @@ public class LevelsFragment extends Fragment{
             }*/
 
             //what will be displayed if for some reason the glide is unable to load the image
-            RequestOptions options = new RequestOptions().placeholder(R.drawable.ic_game_logo_background);
+            //RequestOptions options = new RequestOptions().placeholder(R.drawable.ic_game_logo_background);
 
-            Glide.with(getActivity()).setDefaultRequestOptions(options);
+            //Glide.with(getActivity()).setDefaultRequestOptions(options);
                     //.load(level.getTitle()).into(levelNumTv);
 
             levelNumTv.setText(level.getTitle());
