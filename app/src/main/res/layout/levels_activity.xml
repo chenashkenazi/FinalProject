@@ -11,9 +11,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/header_tv"
         android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="Simon logo"
-        android:textSize="50sp"/>
+        android:text="Simon Logo"
+        style="@style/TextViewLogo"/>
 
 
     <LinearLayout
