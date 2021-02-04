@@ -14,13 +14,12 @@
         android:text="Simon Logo"
         style="@style/TextViewLogo"/>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/body_hsv"
         android:layout_below="@+id/header_tv"
-        android:layout_above="@+id/levels_play_btn"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
         <androidx.viewpager.widget.ViewPager
@@ -47,16 +46,6 @@
         </com.google.android.material.tabs.TabLayout>
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/levels_play_btn"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginVertical="20dp"
-        android:text="PLAY"
-        style="@style/ButtonLevelPlay"/>
 
 </RelativeLayout>
 

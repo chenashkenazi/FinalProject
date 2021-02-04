@@ -55,17 +55,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/btns"
             android:orientation="vertical"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:gravity="center">
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Play"
                 android:id="@+id/play_btn"
                 style="@style/ButtonMainPlay"/>
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reset Game"
                 android:id="@+id/reset_game_btn"

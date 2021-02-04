@@ -32,15 +32,7 @@
     </style>
 
     <style name="ButtonMainPlay" parent="ButtonMain">
-        <item name="android:background">@drawable/button_good_selector</item>
-    </style>
-
-    <style name="ButtonMainReset" parent="ButtonMain">
-        <item name="android:background">@drawable/button_bad_selector</item>
-    </style>
-
-    <style name="ButtonLevelPlay" parent="Button">
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">50sp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingStart">20dp</item>
@@ -48,13 +40,23 @@
         <item name="android:background">@drawable/button_play_selector</item>
         <item name="fontFamily">@font/nerko_one</item>
         <item name="android:textColor">@color/light_gray_light</item>
+    </style>
 
+    <style name="ButtonMainReset" parent="ButtonMain">
+        <item name="android:textSize">30sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:background">@drawable/button_reset_selector</item>
+        <item name="fontFamily">@font/nerko_one</item>
+        <item name="android:textColor">@color/light_gray_light</item>
     </style>
 
     <style name="ButtonsCell" parent="Button">
         <item name="android:textSize">30sp</item>
         <item name="android:padding">20dp</item>
-        <item name="android:background">@drawable/button_cell_selector</item>
+        <item name="android:background">@drawable/levels_button_cell_completed_selector</item>
         <item name="android:fontFamily">@font/fraunces</item>
         <item name="android:textColor">@color/light_gray_light</item>
     </style>
@@ -71,11 +73,16 @@
         <item name="android:fontFamily">@font/nerko_one</item>
     </style>
 
-    <style name="TextViewLevelNumber" parent="TextView">
+    <style name="TextViewLevelTitle" parent="TextView">
+        <item name="android:background">@drawable/levels_title_shape</item>
         <item name="android:textSize">40sp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:fontFamily">@font/londrina_solid</item>
-        <item name="android:textColor">@color/mint_dark</item>
+        <item name="android:textColor">@color/light_gray_light</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
     </style>
 
 

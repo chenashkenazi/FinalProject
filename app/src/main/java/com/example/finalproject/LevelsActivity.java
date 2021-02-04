@@ -27,7 +27,7 @@ public class LevelsActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.levels_view_pager);
         tabLayout = findViewById(R.id.levels_tab_layout);
-        button = findViewById(R.id.levels_play_btn);
+        //button = findViewById(R.id.levels_play_btn);
         
         init();
     }

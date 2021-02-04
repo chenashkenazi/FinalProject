@@ -10,17 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
-import java.util.ArrayList;
 
 /*Here we're going to create the fragment for each level.
  each level will contains:
@@ -102,7 +96,7 @@ public class LevelsFragment extends Fragment{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        levelNumTv = view.findViewById(R.id.level_number);
+        levelNumTv = view.findViewById(R.id.level_title);
         gridView = (GridView)view.findViewById(R.id.levels_grid_view);
 
         init();

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:startColor="@color/light_gray_dark"
+                        android:endColor="?attr/colorSecondaryVariant"
+                        android:type="radial"
+                        android:gradientRadius="200dp"/>
+                    <padding android:bottom="2dp"
+                        android:top="2dp"
+                        android:right="2dp"
+                        android:left="2dp"/>
+                    <corners android:radius="30dp"/>
+                </shape>
+            </item>
+
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient android:startColor="?attr/colorOnBackground"
+                        android:centerColor="?attr/colorSecondary"
+                        android:endColor="?attr/colorSecondaryVariant"
+                        android:angle="270"/>
+                    <corners android:radius="30dp"/>
+                    <stroke android:color="?attr/colorSecondaryVariant"
+                        android:width="3dp"/>
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:startColor="?attr/colorOnBackground"
+                        android:endColor="?attr/colorSecondaryVariant"
+                        android:type="radial"
+                        android:gradientRadius="80dp"/>
+                    <padding android:bottom="2dp"
+                        android:top="2dp"
+                        android:right="2dp"
+                        android:left="2dp"/>
+                    <corners android:radius="30dp"/>
+                </shape>
+            </item>
+
+            <item>
+                <shape android:shape="rectangle">
+                    <stroke android:color="@color/grass_darker"
+                        android:width="3dp"/>
+                    <padding android:bottom="5dp"
+                        android:right="3dp"
+                        android:left="4dp"/>
+                    <corners android:radius="30dp"/>
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient android:startColor="?attr/colorSecondary"
+                        android:endColor="@color/grass_darker"
+                        android:angle="90"/>
+                    <corners android:radius="30dp"/>
+                </shape>
+            </item>
+        </layer-list>
+
+    </item>
+</selector>
