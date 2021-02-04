@@ -56,9 +56,10 @@
     <style name="ButtonsCell" parent="Button">
         <item name="android:textSize">30sp</item>
         <item name="android:padding">20dp</item>
-        <item name="android:background">@drawable/levels_button_cell_locked_shape</item>
+        <item name="android:background">@drawable/levels_button_cell_selector</item>
         <item name="android:fontFamily">@font/fraunces</item>
         <item name="android:textColor">@color/light_gray_light</item>
+        <item name="elevation">0dp</item>
     </style>
 
 
@@ -74,15 +75,17 @@
     </style>
 
     <style name="TextViewLevelTitle" parent="TextView">
-        <item name="android:background">@drawable/levels_title_shape</item>
-        <item name="android:textSize">40sp</item>
+        <!--<item name="android:background">@drawable/levels_title_shape</item>-->
+        <item name="android:textSize">50sp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:fontFamily">@font/londrina_solid</item>
-        <item name="android:textColor">@color/light_gray_light</item>
+        <item name="android:textColor">@color/mint_darker</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
+        <item name="android:shadowColor">@color/grass_light</item>
+        <item name="android:shadowRadius">15</item>
     </style>
 
 

@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 /*Here we're going to create the fragment for each level.
  each level will contains:
@@ -55,7 +59,11 @@ public class LevelsFragment extends Fragment{
     private GridView gridView;
     private Level level;
 
-    private final String[] levels = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+    //private final String[] levels = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+
+    private final SubLevel[] subLevels = new SubLevel[16];
+
+    private int number_of_subLevels_completed = 0;
 
     //creating a new fragment instance
     public static LevelsFragment getInstance(Level level){
@@ -85,6 +93,16 @@ public class LevelsFragment extends Fragment{
             //set our global Level object
             level = getArguments().getParcelable("level");
         }
+
+        for (int i=0 ; i<16 ; i++){
+            subLevels[i] = new SubLevel(i);
+        }
+        /*subLevels[0].setComplete(true);
+        subLevels[0].setStars(1);
+        subLevels[1].setComplete(true);
+        subLevels[1].setStars(3);
+        subLevels[2].setComplete(true);
+        subLevels[2].setStars(2);*/
     }
 
     @Nullable
@@ -117,9 +135,15 @@ public class LevelsFragment extends Fragment{
                     //..
                     //לשלוח ל-SimonLevel1 את מספר השלב (INT) הנוכחי לפי ה-title
                     //מקבלת בחזרה את כמות הכוכבים
+
+                    //if subLevel completed:
+                    subLevels[number_of_subLevels_completed].setStars(1); //1-3
+                    level.setSubLevels(subLevels);
+                    //number_of_subLevels_completed++;
+                    init();
+
                 }
             });
-
         }
     }
 
@@ -130,7 +154,7 @@ public class LevelsFragment extends Fragment{
     private class CustomAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return levels.length;
+            return 16;
         }
 
         @Override
@@ -152,12 +176,37 @@ public class LevelsFragment extends Fragment{
             ImageView star2Iv = (ImageView)view1.findViewById(R.id.second_star);
             ImageView star3Iv = (ImageView)view1.findViewById(R.id.third_star);
 
-            if (level.isLocked()){
+            int level_number = i+1;
 
-            } else{
-                levelBtn.setText(levels[i]);
+            levelBtn.setText(level_number+"");
+
+            int stars = subLevels[i].getStars();
+            if (stars == 1) {
+                star1Iv.setActivated(true);
+            }
+            if (stars == 2) {
+                star1Iv.setActivated(true);
+                star2Iv.setActivated(true);
+            }
+            if (stars == 3) {
+                star1Iv.setActivated(true);
+                star2Iv.setActivated(true);
+                star3Iv.setActivated(true);
             }
 
+            if (level.getTitle().equals("LEVEL 1")) {
+                if (i > 0 && i < 15 && subLevels[i - 1].isComplete() && !subLevels[i + 1].isComplete()) {
+                    levelBtn.setActivated(true);
+                } else if (i == 0 && !subLevels[0].isComplete() && !subLevels[1].isComplete()) {
+                    levelBtn.setActivated(true);
+                } else if (i == 15 && subLevels[14].isComplete() && !subLevels[15].isComplete()) {
+                    levelBtn.setActivated(true);
+                }
+                if (subLevels[i].isComplete()) {
+                    levelBtn.setActivated(false);
+                    levelBtn.setSelected(true);
+                }
+            }
 
             return view1;
         }

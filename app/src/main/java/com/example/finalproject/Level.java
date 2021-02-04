@@ -7,11 +7,9 @@ public class Level implements Parcelable {
 
     private String title;
     private SubLevel[] subLevels;
-    private boolean isLocked;
 
     public Level(String title) {
         this.title = title;
-        isLocked = true;
     }
 
     public String getTitle() {
@@ -28,14 +26,6 @@ public class Level implements Parcelable {
 
     public void setSubLevels(SubLevel[] subLevels) {
         this.subLevels = subLevels;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
     }
 
     protected Level(Parcel in) {

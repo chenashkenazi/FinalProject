@@ -61,7 +61,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Play"
+                android:text="PLAY"
                 android:id="@+id/play_btn"
                 style="@style/ButtonMainPlay"/>
 

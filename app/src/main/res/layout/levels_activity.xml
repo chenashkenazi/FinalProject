@@ -27,7 +27,8 @@
             android:layout_height="0dp"
             android:layout_weight="9"
             android:id="@+id/levels_view_pager"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layoutDirection="locale">
 
         </androidx.viewpager.widget.ViewPager>
 

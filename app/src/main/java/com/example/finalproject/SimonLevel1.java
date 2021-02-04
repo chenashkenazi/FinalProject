@@ -18,8 +18,6 @@ public class SimonLevel1 extends AppCompatActivity {
     ImageView rightTop;
     ImageView rightBottom;
 
-    //private Simon simon;
-
     /*
     מגדיר את MAX לפי:
     MAX = (number_of_level + 2) * 3 + 1
