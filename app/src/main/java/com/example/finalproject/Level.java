@@ -7,9 +7,35 @@ public class Level implements Parcelable {
 
     private String title;
     private SubLevel[] subLevels;
+    private boolean isLocked;
 
     public Level(String title) {
         this.title = title;
+        isLocked = true;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public SubLevel[] getSubLevels() {
+        return subLevels;
+    }
+
+    public void setSubLevels(SubLevel[] subLevels) {
+        this.subLevels = subLevels;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 
     protected Level(Parcel in) {
@@ -27,22 +53,6 @@ public class Level implements Parcelable {
             return new Level[size];
         }
     };
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public SubLevel[] getSubLevels() {
-        return subLevels;
-    }
-
-    public void setSubLevels(SubLevel[] subLevels) {
-        this.subLevels = subLevels;
-    }
 
     @Override
     public int describeContents() {

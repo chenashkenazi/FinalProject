@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,8 +54,6 @@ public class LevelsFragment extends Fragment{
     private TextView levelNumTv; //level's number (level1, level2, level3)
     private GridView gridView;
     private Level level;
-
-    /*private SubLevel[] subLevels = new SubLevel[16];*/
 
     private final String[] levels = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
 
@@ -105,15 +104,6 @@ public class LevelsFragment extends Fragment{
     private void init() {
         //to set the different properties to the widgets
         if(level != null){
-            /*for(int i=0 ; i<16 ; i++){
-                subLevels[i] = new SubLevel(i);
-            }*/
-
-            //what will be displayed if for some reason the glide is unable to load the image
-            //RequestOptions options = new RequestOptions().placeholder(R.drawable.ic_game_logo_background);
-
-            //Glide.with(getActivity()).setDefaultRequestOptions(options);
-                    //.load(level.getTitle()).into(levelNumTv);
 
             levelNumTv.setText(level.getTitle());
 
@@ -125,16 +115,17 @@ public class LevelsFragment extends Fragment{
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     //..
+                    //לשלוח ל-SimonLevel1 את מספר השלב (INT) הנוכחי לפי ה-title
+                    //מקבלת בחזרה את כמות הכוכבים
                 }
             });
 
-            /*gridView.setAdapter(new GridAdapter(subLevels,LevelsFragment.this));*/
         }
     }
 
-    public Object getSystemService(String layoutInflaterService) {
+    /*public Object getSystemService(String layoutInflaterService) {
         return getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-    }
+    }*/
 
     private class CustomAdapter extends BaseAdapter {
         @Override
@@ -161,7 +152,12 @@ public class LevelsFragment extends Fragment{
             ImageView star2Iv = (ImageView)view1.findViewById(R.id.second_star);
             ImageView star3Iv = (ImageView)view1.findViewById(R.id.third_star);
 
-            levelBtn.setText(levels[i]);
+            if (level.isLocked()){
+
+            } else{
+                levelBtn.setText(levels[i]);
+            }
+
 
             return view1;
         }

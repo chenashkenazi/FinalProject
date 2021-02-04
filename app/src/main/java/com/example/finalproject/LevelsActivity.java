@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 
 public class LevelsActivity extends AppCompatActivity {
 
-    //private TextView simonLogo;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Button button;
@@ -27,8 +27,7 @@ public class LevelsActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.levels_view_pager);
         tabLayout = findViewById(R.id.levels_tab_layout);
-        //button = findViewById(R.id.levels_play_btn);
-        
+
         init();
     }
 
@@ -45,7 +44,5 @@ public class LevelsActivity extends AppCompatActivity {
         LevelsPagerAdapter pagerAdapter = new LevelsPagerAdapter(getSupportFragmentManager(),fragments);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager,true);
-
-
     }
 }

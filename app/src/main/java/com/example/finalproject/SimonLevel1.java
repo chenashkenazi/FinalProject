@@ -17,6 +17,22 @@ public class SimonLevel1 extends AppCompatActivity {
     ImageView leftBottom;
     ImageView rightTop;
     ImageView rightBottom;
+
+    //private Simon simon;
+
+    /*
+    מגדיר את MAX לפי:
+    MAX = (number_of_level + 2) * 3 + 1
+
+    //max=10
+    if number_of_moves < (MAX/3) - GAME OVER
+    else if number_of_moves < (2MAX/3) - 1 star
+    else if number_of_moves < (MAX) - 2 stars
+    else - 3 stars
+
+    */
+
+
     public int numberOfElmentsInMovesArray = 0, k = 0, numberOfClicksEachStage = 0, x;
     final int MAX_LENGTH = 100;
     int array_of_moves[] = new int[MAX_LENGTH];
@@ -76,6 +92,10 @@ public class SimonLevel1 extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
+                        //..מחזיר את כמות הכוכבים
+
+
+
                     });
 
                     AlertDialog alertDialog = alertDialogBuilder.create();
