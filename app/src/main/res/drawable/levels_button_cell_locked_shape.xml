@@ -3,7 +3,7 @@
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="@color/light_gray_dark"
+                android:startColor="?attr/colorOnBackground"
                 android:endColor="@color/medium_gray_dark"
                 android:type="radial"
                 android:gradientRadius="200dp"/>
@@ -17,7 +17,7 @@
 
     <item>
         <shape android:shape="rectangle">
-            <gradient android:startColor="?attr/colorOnBackground"
+            <gradient android:startColor="@color/background_light"
                 android:centerColor="@color/medium_gray_light"
                 android:endColor="@color/medium_gray_dark"
                 android:angle="270"/>
@@ -26,5 +26,12 @@
                 android:width="3dp"/>
         </shape>
     </item>
+
+    <item android:drawable="@drawable/ic_lock"
+        android:width="24dp"
+        android:height="24dp"
+        android:gravity="top|right"/>
+
+
     
 </layer-list>

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!--state_first for locked levels-->
-    <item android:state_first="true" android:drawable="@drawable/levels_button_cell_locked_shape"/>
-
-    <!--state_middle for the next level-->
-    <item android:state_middle="true" android:drawable="@drawable/levels_button_cell_next_selector"/>
-
-    <!--state_last for completed levels-->
-    <item android:state_last="true" android:drawable="@drawable/levels_button_cell_completed_selector"/>
-
-
+    <item android:state_activated="false" android:state_selected="false" android:drawable="@drawable/levels_button_cell_locked_shape"/>
+    <item android:state_activated="true" android:drawable="@drawable/levels_button_cell_next_selector"/>
+    <item android:state_selected="true" android:drawable="@drawable/levels_button_cell_completed_selector"/>
 </selector>

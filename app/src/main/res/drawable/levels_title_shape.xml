@@ -15,7 +15,7 @@
         </shape>
     </item>-->
 
-    <item>
+    <!--<item>
         <shape android:shape="rectangle">
             <gradient android:startColor="?attr/colorSecondary"
                 android:centerColor="?attr/colorSecondaryVariant"
@@ -23,6 +23,18 @@
                 android:angle="270"/>
             <corners android:radius="10dp"/>
             <stroke android:color="?attr/colorSecondaryVariant"
+                android:width="2dp"/>
+        </shape>
+    </item>-->
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/light_gray_light"
+                android:centerColor="@color/light_gray_dark"
+                android:endColor="@color/medium_gray_light"
+                android:angle="270"/>
+            <corners android:radius="10dp"/>
+            <stroke android:color="@color/light_gray_dark"
                 android:width="2dp"/>
         </shape>
     </item>
