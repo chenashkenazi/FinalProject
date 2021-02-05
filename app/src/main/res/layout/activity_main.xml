@@ -7,74 +7,50 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/logo_layout"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Simon logo"
-            android:textSize="50sp"
-            android:gravity="center"
-            />
-
-    </LinearLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/simon_logo"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"/>
 
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:id="@+id/simon_animation"
+        android:layout_gravity="center"
+        android:text="Animation / pic"
+        android:textSize="50sp"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/btns"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_gravity="center"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Animation / pic"
-            android:textSize="50sp"
-            android:gravity="center"
-            />
+            android:text="PLAY"
+            android:id="@+id/play_btn"
+            style="@style/ButtonMainPlay"/>
 
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Game"
+            android:id="@+id/reset_game_btn"
+            style="@style/ButtonMainReset"/>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btns_layout"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btns"
-            android:orientation="vertical"
-            android:layout_centerInParent="true"
-            android:gravity="center">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PLAY"
-                android:id="@+id/play_btn"
-                style="@style/ButtonMainPlay"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reset Game"
-                android:id="@+id/reset_game_btn"
-                style="@style/ButtonMainReset"/>
-        </LinearLayout>
-
-
-    </RelativeLayout>
 
 
 </LinearLayout>

@@ -6,19 +6,21 @@
     android:padding="10dp"
     android:background="?attr/colorOnBackground">
 
-    <TextView
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header_tv"
+        android:layout_height="170dp"
         android:layout_alignParentTop="true"
-        android:text="Simon Logo"
-        style="@style/TextViewLogo"/>
+        android:id="@+id/logo_iv"
+        android:src="@drawable/simon_logo"
+        android:scaleType="fitCenter"
+        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/body_hsv"
-        android:layout_below="@+id/header_tv"
+        android:layout_below="@+id/logo_iv"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 

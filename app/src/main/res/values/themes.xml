@@ -6,13 +6,13 @@
         <item name="colorPrimaryVariant">@color/mint_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/grass_light</item>
-        <item name="colorSecondaryVariant">@color/grass_dark</item>
+        <item name="colorSecondary">@color/sunflower_light</item>
+        <item name="colorSecondaryVariant">@color/sunflower_dark</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="colorAccent">@color/aqua_light</item>
+        <item name="colorAccent">@color/mint_dark</item>
         <item name="colorOnBackground">@color/background_light</item>
         <item name="android:textColorPrimary">@color/black</item>
     </style>
