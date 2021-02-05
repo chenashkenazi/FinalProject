@@ -9,16 +9,16 @@
         android:scaleY="0.032">
         <path
             android:pathData="M59.3,2.5l629.5,0C721.5,2.5 748,29 748,61.8v629.5c0,34.7 -29.7,62 -64.3,59C320.5,719.4 31.1,430 0.2,66.8C-2.7,32.2 24.5,2.5 59.3,2.5z"
-            android:fillColor="#037108"/>
+            android:fillColor="#80B348"/>
         <path
             android:strokeWidth="1"
             android:pathData="M-1026.5,275.5v389c-214.8,0 -389,-174.2 -389,-389H-1026.5z"
-            android:fillColor="#037108"
-            android:strokeColor="#037108"/>
+            android:fillColor="#80B348"
+            android:strokeColor="#80B348"/>
         <path
             android:strokeWidth="1"
             android:pathData="M-1009.5,-396.5v389h-389C-1398.5,-222.3 -1224.3,-396.5 -1009.5,-396.5z"
-            android:fillColor="#FFFFFF"
+            android:fillColor="#80B348"
             android:strokeColor="#666666"/>
         <path
             android:strokeWidth="1"

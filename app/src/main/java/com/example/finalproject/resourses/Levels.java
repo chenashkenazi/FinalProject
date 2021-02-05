@@ -1,6 +1,6 @@
 package com.example.finalproject.resourses;
 
-import com.example.finalproject.Level;
+import com.example.finalproject.*;
 
 /*this class will specifics of each individual level object*/
 public class Levels {

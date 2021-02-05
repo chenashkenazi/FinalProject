@@ -10,33 +10,22 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Random;
-
 public class SimonLevel1 extends AppCompatActivity {
     ImageView leftTop;
     ImageView leftBottom;
     ImageView rightTop;
     ImageView rightBottom;
 
-    //private Simon simon;
+    private Simon simon;
 
-    /*
-    מגדיר את MAX לפי:
-    MAX = (number_of_level + 2) * 3 + 1
 
-    //max=10
-    if number_of_moves < (MAX/3) - GAME OVER
-    else if number_of_moves < (2MAX/3) - 1 star
-    else if number_of_moves < (MAX) - 2 stars
-    else - 3 stars
 
-    */
+
 
 
     public int numberOfElmentsInMovesArray = 0, k = 0, numberOfClicksEachStage = 0, x;
-    final int MAX_LENGTH = 100;
-    int array_of_moves[] = new int[MAX_LENGTH];
-    Random r = new Random();
+    public int MAX_LENGTH, number_of_level, Amount_of_Image_view = 4;
+    public int[] array_of_moves;
     final Handler handler = new Handler();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +36,20 @@ public class SimonLevel1 extends AppCompatActivity {
         rightTop = findViewById(R.id.level1_button_top_right);
         rightBottom = findViewById(R.id.level1_button_bottom_right);
 
+//צריך לקבל את MAX_LENGTH ו number_of_level מה LevelsFragment
+//number_of_level=
+
+
         leftTop.setOnTouchListener(onTouch);
         leftBottom.setOnTouchListener(onTouch);
         rightBottom.setOnTouchListener(onTouch);
         rightTop.setOnTouchListener(onTouch);
+
+        MAX_LENGTH= (number_of_level + 2) * 3 + 1;
+        simon = new Simon(MAX_LENGTH, Amount_of_Image_view);
+        array_of_moves = simon.getArray_of_moves(simon);
+
+
     }
 
     ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
@@ -95,7 +94,6 @@ public class SimonLevel1 extends AppCompatActivity {
                         //..מחזיר את כמות הכוכבים
 
 
-
                     });
 
                     AlertDialog alertDialog = alertDialogBuilder.create();
@@ -110,7 +108,7 @@ public class SimonLevel1 extends AppCompatActivity {
     };
 
     public void playGame() {
-        appendValueToArray();
+        //  array_of_moves= simon.getArray_of_moves(simon);
         numberOfElmentsInMovesArray++;
         for (k = 0; k < numberOfElmentsInMovesArray; k++) {
             click(k);
@@ -133,8 +131,9 @@ public class SimonLevel1 extends AppCompatActivity {
             }
         };
 
-      //  handler.postDelayed(r, (2000 - 500 * hardness) * click_index);
+        //  handler.postDelayed(r, (2000 - 500 * hardness) * click_index);
     }
+
     private void xorMyColor(final View v) {
         //function that changes the background color and get it back after 500 milliseconds
         v.getBackground().setAlpha(51);
@@ -146,25 +145,33 @@ public class SimonLevel1 extends AppCompatActivity {
         handler.postDelayed(r, 300);
     }
 
-    private int generateRandomNumber() {
-        return r.nextInt(4) + 1; // generate random number between 1 and 4
-    }
-
-    private void appendValueToArray() {  // add random number to the first free position in the array
-        for (int i = 0; i < MAX_LENGTH; i++) {
-            if (array_of_moves[i] == 0) {
-                array_of_moves[i] = generateRandomNumber();
-                break;
-            }
-        }
-    }
 
     private void clear() {//reset the game to initial state
-        for (int i = 0; i < MAX_LENGTH; i++) {
-            array_of_moves[i] = 0;
-        }
         numberOfClicksEachStage = 0;
         numberOfElmentsInMovesArray = 0;
     }
+
+    private int stars() {
+
+        if (this.numberOfElmentsInMovesArray < (this.MAX_LENGTH / 3))
+        {
+            return 0;
+        }
+        else if (this.numberOfElmentsInMovesArray < (2 * this.MAX_LENGTH / 3))
+        {
+            return 1;
+        }
+        else if (this.numberOfElmentsInMovesArray < this.MAX_LENGTH)
+        {
+            return 2;
+        }
+        else
+        {
+            return 3;
+        }
+
+
+    }
+
 
 }

@@ -43,7 +43,7 @@ dependencies {
     //support design
     implementation "com.android.support:design:$supportVersion"
 
-    /*//glide
+    //glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"*/
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 }
