@@ -23,7 +23,7 @@ public class SimonLevel1 extends AppCompatActivity {
 
 
 
-    public int numberOfElmentsInMovesArray = 0, k = 0, numberOfClicksEachStage = 0, x;
+    public int numberOfElmentsInMovesArray = 0, k = 0, numberOfClicksEachStage = 0, highScore = 0, x;
     public int MAX_LENGTH, number_of_level, Amount_of_Image_view = 4;
     public int[] array_of_moves;
     final Handler handler = new Handler();
@@ -100,6 +100,24 @@ public class SimonLevel1 extends AppCompatActivity {
                     alertDialog.show();
 
                     return true;
+                }
+
+                xorMyColor(v);
+                numberOfClicksEachStage++;
+                if (numberOfElmentsInMovesArray == numberOfClicksEachStage) { //if 4 boxes shown, then activate  function
+                    //playGame only after 4 clicks have been made by the user
+
+                    numberOfClicksEachStage = 0;
+                    if (numberOfElmentsInMovesArray > highScore) {
+                        highScore = numberOfElmentsInMovesArray;
+                    }
+
+                    final Runnable r = new Runnable() {
+                        public void run() {
+                            playGame();
+                        }
+                    };
+                    //handler.postDelayed(r, 2000 - 500 * hardness);
                 }
             }
             return true;
