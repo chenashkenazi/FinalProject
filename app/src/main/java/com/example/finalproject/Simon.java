@@ -62,7 +62,8 @@ public class Simon {
     }
 
     public int[] getArrayOfMoves() {
-        return arrayOfMoves;
+        this.arrayOfMoves = appendValueToArray();
+        return this.arrayOfMoves;
     }
 
     /*public void setArrayOfMoves(int[] arrayOfMoves) {
@@ -83,10 +84,7 @@ public class Simon {
     /*adding random number to the first free position in the array*/
     public int[] appendValueToArray() {  //
         for (int i = 0; i < this.maxLength; i++) {
-            if (this.arrayOfMoves[i] == 0) {
                 this.arrayOfMoves[i] = generateRandomNumber();
-                break;
-            }
         }
 
         return this.arrayOfMoves;

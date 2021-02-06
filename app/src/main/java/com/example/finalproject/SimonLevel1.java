@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class SimonLevel1 extends AppCompatActivity {
     ImageView leftTop;
@@ -48,12 +49,19 @@ public class SimonLevel1 extends AppCompatActivity {
         //getting intent from LevelsFragment
         Intent incomingIntent = getIntent();
         number_of_level = incomingIntent.getIntExtra("subLevelNumber",0);
+        System.out.println("number of level: " + number_of_level);
 
         maxLength = (number_of_level + 2) * 3 + 1;
 
         simon = new Simon(maxLength, amountOfImageView);
+        System.out.println("max length: " + maxLength);
         //array_of_moves = simon.getArray_of_moves(simon);
         array_of_moves = simon.getArrayOfMoves();
+        for(int i=0; i<maxLength; i++)
+        {
+            System.out.println(array_of_moves[i]);
+        }
+
     }
 
     ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
@@ -142,7 +150,7 @@ public class SimonLevel1 extends AppCompatActivity {
     public void playGame() {
         numberOfElementsInMovesArray++;
         for (int k = 0; k < numberOfElementsInMovesArray; k++) {
-            click(k);
+            click(k+1);
         }
     }
 
@@ -167,10 +175,25 @@ public class SimonLevel1 extends AppCompatActivity {
 
     /*function that changes the background color and get it back after 500 milliseconds*/
     private void xorMyColor(final View v) {
-        v.getBackground().setAlpha(51);
-        final Runnable r = new Runnable() {
+
+        switch (v.getId()) {
+            case R.id.level1_button_top_left:
+                v.setAlpha(0.5f);
+                break;
+            case R.id.level1_button_top_right:
+                v.setAlpha(0.5f);
+                break;
+            case R.id.level1_button_bottom_left:
+                v.setAlpha(0.5f);
+                break;
+            case R.id.level1_button_bottom_right:
+                v.setAlpha(0.5f);
+                break;
+
+        }
+            final Runnable r = new Runnable() {
             public void run() {
-                v.getBackground().setAlpha(255);
+                v.setAlpha(1.0f);
             }
         };
         handler.postDelayed(r, 300);
