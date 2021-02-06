@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -58,8 +59,6 @@ public class LevelsFragment extends Fragment{
     private TextView levelNumTv; //level's number (level1, level2, level3)
     private GridView gridView;
     private Level level;
-
-    //private final String[] levels = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
 
     private final SubLevel[] subLevels = new SubLevel[16];
 
@@ -135,12 +134,27 @@ public class LevelsFragment extends Fragment{
                     //..
                     //לשלוח ל-SimonLevel1 את מספר השלב (INT) הנוכחי לפי ה-title
                     //מקבלת בחזרה את כמות הכוכבים
+                    /*Intent intent;
+                    switch (level.getTitle()){
+                        case "LEVEL 1":
+                            intent = new Intent(getActivity().getApplicationContext(),SimonLevel1.class);
+                            intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
+                            startActivity(intent);
+                            break;
+                        case "LEVEL 2":
+
+                            break;
+                        case "LEVEL 3":
+
+                            break;
+                    }
+*/
 
                     //if subLevel completed:
-                    subLevels[number_of_subLevels_completed].setStars(1); //1-3
-                    level.setSubLevels(subLevels);
+                    /*subLevels[number_of_subLevels_completed].setStars(1); //1-3
+                    level.setSubLevels(subLevels);*/
                     //number_of_subLevels_completed++;
-                    init();
+                    //init();
 
                 }
             });
@@ -207,6 +221,29 @@ public class LevelsFragment extends Fragment{
                     levelBtn.setSelected(true);
                 }
             }
+
+            levelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*switch (level.getTitle()){
+                        case "LEVEL 1":
+                            Intent intent = new Intent(getActivity(),SimonLevel1.class);
+                            intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
+                            startActivity(intent);
+                            break;
+                        case "LEVEL 2":
+                            break;
+                        case "LEVEL 3":
+                            break;
+                    }*/
+
+                    Intent intent = new Intent(LevelsFragment.this.getActivity(),SimonLevel1.class);
+                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber()+1);
+                    startActivity(intent);
+
+                    //Toast.makeText(getActivity(), subLevels[i].getSubLevelNumber()+"", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             return view1;
         }

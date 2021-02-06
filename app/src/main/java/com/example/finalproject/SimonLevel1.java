@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -18,62 +19,69 @@ public class SimonLevel1 extends AppCompatActivity {
 
     private Simon simon;
 
+    public int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
+    private int numberOfClicksEachStage = 0; //index in array_of_moves
+    private int highScore = 0; //
+    private int colorClicked; //whether color has been touched
 
-
-
-
-
-    public int numberOfElmentsInMovesArray = 0, k = 0, numberOfClicksEachStage = 0, highScore = 0, x;
-    public int MAX_LENGTH, number_of_level, Amount_of_Image_view = 4;
-    public int[] array_of_moves;
+    private int maxLength; //array's max length - sets differently for each subLevel
+    public int[] array_of_moves; //the array of moves of the subLevel (created randomly in Simon's class)
     final Handler handler = new Handler();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simon_game);
+
+        int amountOfImageView = 4;
+        int number_of_level; //from LevelsFragment
+
         leftTop = findViewById(R.id.level1_button_top_left);
         leftBottom = findViewById(R.id.level1_button_bottom_left);
         rightTop = findViewById(R.id.level1_button_top_right);
         rightBottom = findViewById(R.id.level1_button_bottom_right);
-
-//צריך לקבל את MAX_LENGTH ו number_of_level מה LevelsFragment
-//number_of_level=
-
 
         leftTop.setOnTouchListener(onTouch);
         leftBottom.setOnTouchListener(onTouch);
         rightBottom.setOnTouchListener(onTouch);
         rightTop.setOnTouchListener(onTouch);
 
-        MAX_LENGTH= (number_of_level + 2) * 3 + 1;
-        simon = new Simon(MAX_LENGTH, Amount_of_Image_view);
-        array_of_moves = simon.getArray_of_moves(simon);
+        //getting intent from LevelsFragment
+        Intent incomingIntent = getIntent();
+        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0);
 
+        maxLength = (number_of_level + 2) * 3 + 1;
 
+        simon = new Simon(maxLength, amountOfImageView);
+        //array_of_moves = simon.getArray_of_moves(simon);
+        array_of_moves = simon.getArrayOfMoves();
     }
 
     ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
+
+                /*which color the user touched*/
                 switch (v.getId()) {
                     case R.id.level1_button_top_left:
-                        x = 1;
+                        colorClicked = 1;
                         break;
                     case R.id.level1_button_top_right:
-                        x = 2;
+                        colorClicked = 2;
                         break;
                     case R.id.level1_button_bottom_left:
-                        x = 3;
+                        colorClicked = 3;
                         break;
                     case R.id.level1_button_bottom_right:
-                        x = 4;
+                        colorClicked = 4;
                         break;
 
                 }
-                if (array_of_moves[numberOfClicksEachStage] != x) { // on wrong click
 
+                /*if the user clicked on the wrong color*/
+                if (array_of_moves[numberOfClicksEachStage] != colorClicked) {
 
+                    /*Dialog - restart or return to LevelsFragment*/
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SimonLevel1.this);
                     alertDialogBuilder.setMessage("Game over, Do you want to play again?");
                     alertDialogBuilder.setPositiveButton("Play again",
@@ -85,17 +93,18 @@ public class SimonLevel1 extends AppCompatActivity {
                                     playGame();
                                 }
                             });
-
                     alertDialogBuilder.setNegativeButton("Back to level", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //finishing level and return to LevelsFragment with the amount of stars collected
+                            Intent intent = new Intent(SimonLevel1.this, LevelsFragment.class);
+                            intent.putExtra("stars", stars());
+                            startActivity(intent);
+
                             finish();
                         }
-                        //..מחזיר את כמות הכוכבים
-
 
                     });
-
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
 
@@ -103,13 +112,17 @@ public class SimonLevel1 extends AppCompatActivity {
                 }
 
                 xorMyColor(v);
+
                 numberOfClicksEachStage++;
-                if (numberOfElmentsInMovesArray == numberOfClicksEachStage) { //if 4 boxes shown, then activate  function
+
+                /*if the user clicked on the right color*/
+                if (numberOfElementsInMovesArray == numberOfClicksEachStage) {
+                    //if 4 boxes shown, then activate function
                     //playGame only after 4 clicks have been made by the user
 
                     numberOfClicksEachStage = 0;
-                    if (numberOfElmentsInMovesArray > highScore) {
-                        highScore = numberOfElmentsInMovesArray;
+                    if (numberOfElementsInMovesArray > highScore) {
+                        highScore = numberOfElementsInMovesArray;
                     }
 
                     final Runnable r = new Runnable() {
@@ -125,16 +138,16 @@ public class SimonLevel1 extends AppCompatActivity {
 
     };
 
+
     public void playGame() {
-        //  array_of_moves= simon.getArray_of_moves(simon);
-        numberOfElmentsInMovesArray++;
-        for (k = 0; k < numberOfElmentsInMovesArray; k++) {
+        numberOfElementsInMovesArray++;
+        for (int k = 0; k < numberOfElementsInMovesArray; k++) {
             click(k);
         }
     }
 
+    /*Function that clicks one place randomly on the view*/
     public void click(final int click_index) {
-        //Function that clicks one place randomally on the view
         final Runnable r = new Runnable() {
             public void run() {
                 if (array_of_moves[click_index] == 1) {
@@ -152,8 +165,8 @@ public class SimonLevel1 extends AppCompatActivity {
         //  handler.postDelayed(r, (2000 - 500 * hardness) * click_index);
     }
 
+    /*function that changes the background color and get it back after 500 milliseconds*/
     private void xorMyColor(final View v) {
-        //function that changes the background color and get it back after 500 milliseconds
         v.getBackground().setAlpha(51);
         final Runnable r = new Runnable() {
             public void run() {
@@ -163,32 +176,22 @@ public class SimonLevel1 extends AppCompatActivity {
         handler.postDelayed(r, 300);
     }
 
-
-    private void clear() {//reset the game to initial state
+    /*reset the game to initial state*/
+    private void clear() {
         numberOfClicksEachStage = 0;
-        numberOfElmentsInMovesArray = 0;
+        numberOfElementsInMovesArray = 0;
     }
 
+    /*defining how many stats user should get*/
     private int stars() {
-
-        if (this.numberOfElmentsInMovesArray < (this.MAX_LENGTH / 3))
-        {
+        if (this.numberOfElementsInMovesArray < (this.maxLength / 3))
             return 0;
-        }
-        else if (this.numberOfElmentsInMovesArray < (2 * this.MAX_LENGTH / 3))
-        {
+        else if (this.numberOfElementsInMovesArray < (2 * this.maxLength / 3))
             return 1;
-        }
-        else if (this.numberOfElmentsInMovesArray < this.MAX_LENGTH)
-        {
+        else if (this.numberOfElementsInMovesArray < this.maxLength)
             return 2;
-        }
         else
-        {
             return 3;
-        }
-
-
     }
 
 
