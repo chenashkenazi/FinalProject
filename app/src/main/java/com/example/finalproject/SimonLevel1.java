@@ -48,7 +48,6 @@ public class SimonLevel1 extends AppCompatActivity {
         //getting intent from LevelsFragment
         Intent incomingIntent = getIntent();
         number_of_level = incomingIntent.getIntExtra("subLevelNumber",0);
-        System.out.println("number of level: " + number_of_level);
 
         maxLength = (number_of_level + 2) * 3 + 1;
 
@@ -56,12 +55,15 @@ public class SimonLevel1 extends AppCompatActivity {
         System.out.println("max length: " + maxLength);
         //array_of_moves = simon.getArray_of_moves(simon);
         array_of_moves = simon.getArrayOfMoves();
+        for (int i = 0; i < maxLength; i++) {
+            System.out.println(array_of_moves[i]);
+        }
         final Runnable r = new Runnable() {
             public void run() {
                 playGame();
             }
         };
-        handler.postDelayed(r, 3000);
+        handler.postDelayed(r, 2000);
     }
 
 
@@ -140,7 +142,7 @@ public class SimonLevel1 extends AppCompatActivity {
                             playGame();
                         }
                     };
-                    //handler.postDelayed(r, 2000 - 500 * hardness);
+                    handler.postDelayed(r, 3000);
                 }
 
             }
@@ -173,7 +175,7 @@ public class SimonLevel1 extends AppCompatActivity {
             }
         };
 
-        //  handler.postDelayed(r, (2000 - 500 * hardness) * click_index);
+        handler.postDelayed(r, 2000 * click_index);
     }
 
     /*function that changes the background color and get it back after 500 milliseconds*/
