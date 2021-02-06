@@ -21,7 +21,7 @@ public class SimonLevel1 extends AppCompatActivity {
 
     public int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
     private int numberOfClicksEachStage = 0; //index in array_of_moves
-    private int highScore = 0; //??
+    private int highScore = 0; //
     private int colorClicked; //whether color has been touched
 
     private int maxLength; //array's max length - sets differently for each subLevel
