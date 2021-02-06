@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 public class SimonLevel1 extends AppCompatActivity {
     ImageView leftTop;
@@ -57,12 +56,15 @@ public class SimonLevel1 extends AppCompatActivity {
         System.out.println("max length: " + maxLength);
         //array_of_moves = simon.getArray_of_moves(simon);
         array_of_moves = simon.getArrayOfMoves();
-        for(int i=0; i<maxLength; i++)
-        {
-            System.out.println(array_of_moves[i]);
-        }
-
+        final Runnable r = new Runnable() {
+            public void run() {
+                playGame();
+            }
+        };
+        handler.postDelayed(r, 3000);
     }
+
+
 
     ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
         @Override
@@ -121,8 +123,8 @@ public class SimonLevel1 extends AppCompatActivity {
 
                 xorMyColor(v);
 
-                numberOfClicksEachStage++;
 
+                numberOfClicksEachStage++;
                 /*if the user clicked on the right color*/
                 if (numberOfElementsInMovesArray == numberOfClicksEachStage) {
                     //if 4 boxes shown, then activate function
@@ -140,6 +142,7 @@ public class SimonLevel1 extends AppCompatActivity {
                     };
                     //handler.postDelayed(r, 2000 - 500 * hardness);
                 }
+
             }
             return true;
         }
@@ -150,7 +153,7 @@ public class SimonLevel1 extends AppCompatActivity {
     public void playGame() {
         numberOfElementsInMovesArray++;
         for (int k = 0; k < numberOfElementsInMovesArray; k++) {
-            click(k+1);
+            click(k);
         }
     }
 
@@ -176,21 +179,7 @@ public class SimonLevel1 extends AppCompatActivity {
     /*function that changes the background color and get it back after 500 milliseconds*/
     private void xorMyColor(final View v) {
 
-        switch (v.getId()) {
-            case R.id.level1_button_top_left:
-                v.setAlpha(0.5f);
-                break;
-            case R.id.level1_button_top_right:
-                v.setAlpha(0.5f);
-                break;
-            case R.id.level1_button_bottom_left:
-                v.setAlpha(0.5f);
-                break;
-            case R.id.level1_button_bottom_right:
-                v.setAlpha(0.5f);
-                break;
-
-        }
+        v.setAlpha(0.5f);
             final Runnable r = new Runnable() {
             public void run() {
                 v.setAlpha(1.0f);

@@ -13,6 +13,7 @@ public class Simon {
         this.amountOfImageView = amountOfImageView;
         this.maxLength = maxLength;
         this.arrayOfMoves = new int[maxLength];
+        setArrayOfMoves();
         r= new Random();
     }
 
@@ -62,7 +63,7 @@ public class Simon {
     }
 
     public int[] getArrayOfMoves() {
-        this.arrayOfMoves = appendValueToArray();
+
         return this.arrayOfMoves;
     }
 
