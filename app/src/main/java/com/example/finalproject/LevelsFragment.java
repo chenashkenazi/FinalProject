@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +25,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.finalproject.resourses.Levels;
+
 import java.util.Objects;
+
+import static com.example.finalproject.resourses.Levels.FIRST_LEVEL;
 
 /*Here we're going to create the fragment for each level.
  each level will contains:
@@ -64,6 +73,8 @@ public class LevelsFragment extends Fragment{
 
     private int number_of_subLevels_completed = 0;
 
+    private int receiveStars = 0, receiveNumber = 0;
+
     //creating a new fragment instance
     public static LevelsFragment getInstance(Level level){
         /*we'll taken the Level object that was passed through the constructor,
@@ -102,18 +113,30 @@ public class LevelsFragment extends Fragment{
         subLevels[1].setStars(3);
         subLevels[2].setComplete(true);
         subLevels[2].setStars(2);*/
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.levels_fragment,container,false);
+        View view = inflater.inflate(R.layout.levels_fragment,container,false);
+
+        //receiving data from SimonLevel1
+        receiveStars = getArguments().getInt("stars");
+        receiveNumber = getArguments().getInt("number");
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         levelNumTv = view.findViewById(R.id.level_title);
         gridView = (GridView)view.findViewById(R.id.levels_grid_view);
+
+        //getting measurements to spacing the gridView
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        gridView.setVerticalSpacing((displayMetrics.heightPixels)/40);//???????
 
         init();
     }
@@ -183,32 +206,64 @@ public class LevelsFragment extends Fragment{
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            View view1 = getLayoutInflater().inflate(R.layout.levels_cell,null);
+            View grid = getLayoutInflater().inflate(R.layout.levels_cell,null);
 
-            Button levelBtn = (Button)view1.findViewById(R.id.level_btn);
-            ImageView star1Iv = (ImageView)view1.findViewById(R.id.first_star);
-            ImageView star2Iv = (ImageView)view1.findViewById(R.id.second_star);
-            ImageView star3Iv = (ImageView)view1.findViewById(R.id.third_star);
+            Button levelBtn = (Button)grid.findViewById(R.id.level_btn);
+            ImageView star1Iv = (ImageView)grid.findViewById(R.id.first_star);
+            ImageView star2Iv = (ImageView)grid.findViewById(R.id.second_star);
+            ImageView star3Iv = (ImageView)grid.findViewById(R.id.third_star);
 
             int level_number = i+1;
-
             levelBtn.setText(level_number+"");
 
-            int stars = subLevels[i].getStars();
-            if (stars == 1) {
-                star1Iv.setActivated(true);
-            }
-            if (stars == 2) {
-                star1Iv.setActivated(true);
-                star2Iv.setActivated(true);
-            }
-            if (stars == 3) {
-                star1Iv.setActivated(true);
-                star2Iv.setActivated(true);
-                star3Iv.setActivated(true);
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            levelBtn.setWidth((displayMetrics.heightPixels)/9);
+            levelBtn.setHeight((displayMetrics.heightPixels)/10);
+
+            if (i == (receiveNumber-1) && receiveStars > 0){
+
+                number_of_subLevels_completed++;
+                subLevels[i].setComplete(true);
+                subLevels[i].setStars(receiveStars);
+
+                //activating stars
+                switch (subLevels[i].getStars()){
+                    case 1:
+                        star1Iv.setActivated(true);
+                        break;
+                    case 2:
+                        star1Iv.setActivated(true);
+                        star2Iv.setActivated(true);
+                        break;
+                    case 3:
+                        star1Iv.setActivated(true);
+                        star2Iv.setActivated(true);
+                        star3Iv.setActivated(true);
+                }
             }
 
-            if (level.getTitle().equals("LEVEL 1")) {
+            if (subLevels[15].isComplete()){
+                //level is complete
+                //צריך לעשות שהתצוגה תעבור לפרגמנט הבא בתור
+            }
+
+
+            /*if (level.getTitle().equals("LEVEL 1")) {
+                if (i > 0 && i < 15 && subLevels[i - 1].isComplete() && !subLevels[i + 1].isComplete()) {
+                    levelBtn.setActivated(true);
+                } else if (i == 0 && !subLevels[0].isComplete() && !subLevels[1].isComplete()) {
+                    levelBtn.setActivated(true);
+                } else if (i == 15 && subLevels[14].isComplete() && !subLevels[15].isComplete()) {
+                    levelBtn.setActivated(true);
+                }
+                if (subLevels[i].isComplete()) {
+                    levelBtn.setActivated(false);
+                    levelBtn.setSelected(true);
+                }
+            }*/
+
+            if (level == FIRST_LEVEL) {
                 if (i > 0 && i < 15 && subLevels[i - 1].isComplete() && !subLevels[i + 1].isComplete()) {
                     levelBtn.setActivated(true);
                 } else if (i == 0 && !subLevels[0].isComplete() && !subLevels[1].isComplete()) {
@@ -225,29 +280,20 @@ public class LevelsFragment extends Fragment{
             levelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*switch (level.getTitle()){
-                        case "LEVEL 1":
-                            Intent intent = new Intent(getActivity(),SimonLevel1.class);
-                            intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
-                            startActivity(intent);
-                            break;
-                        case "LEVEL 2":
-                            break;
-                        case "LEVEL 3":
-                            break;
-                    }*/
-
-                    Intent intent = new Intent(LevelsFragment.this.getActivity(),SimonLevel1.class);
-                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber()+1);
-                    startActivity(intent);
-
-                    //Toast.makeText(getActivity(), subLevels[i].getSubLevelNumber()+"", Toast.LENGTH_SHORT).show();
+                    sentInstance(i);
                 }
             });
 
-            return view1;
+            return grid;
         }
 
-
+        private void sentInstance(int i){
+            Intent intent = new Intent(LevelsFragment.this.getActivity(),SimonLevel1.class);
+            intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber()+1);
+            intent.putExtra("numberOfStars",subLevels[i].getStars());
+            startActivity(intent);
+        }
     }
+
+
 }

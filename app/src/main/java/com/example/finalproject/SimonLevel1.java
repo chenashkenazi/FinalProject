@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class SimonLevel1 extends AppCompatActivity {
     ImageView leftTop;
@@ -34,12 +36,14 @@ public class SimonLevel1 extends AppCompatActivity {
     //NEWWW
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
+    private int number_of_level; //from LevelsFragment
+    private int incomingStars; //how much stars user has already
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simon_game);
 
         int amountOfImageView = 4;
-        int number_of_level; //from LevelsFragment
 
         leftTop = findViewById(R.id.level1_button_top_left);
         leftBottom = findViewById(R.id.level1_button_bottom_left);
@@ -54,8 +58,10 @@ public class SimonLevel1 extends AppCompatActivity {
         //getting intent from LevelsFragment
         Intent incomingIntent = getIntent();
         number_of_level = incomingIntent.getIntExtra("subLevelNumber",0);
+        incomingStars = incomingIntent.getIntExtra("numberOfStars",0);
 
-        maxLength = (number_of_level + 2) * 3 + 1;
+        //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
+        maxLength = 1; ////בדיקה!!!!!
 
         simon = new Simon(maxLength, amountOfImageView);
         System.out.println("max length: " + maxLength);
@@ -115,9 +121,20 @@ public class SimonLevel1 extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //finishing level and return to LevelsFragment with the amount of stars collected
-                            Intent intent = new Intent(SimonLevel1.this, LevelsFragment.class);
-                            intent.putExtra("stars", stars());
-                            startActivity(intent);
+                            /*FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.levels_fragment,new LevelsFragment()).commit();*/
+
+                            Bundle args = new Bundle();
+                            args.putInt("stars", Math.max(stars(), incomingStars)); //change only if user got higher score
+                            args.putInt("number", number_of_level);
+                            LevelsFragment levelsFragment = new LevelsFragment();
+                            levelsFragment.setArguments(args);
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.levels_fragment, levelsFragment).commit();
+
+                            /*Intent intent = new Intent(SimonLevel1.this, LevelsFragment.class);
+                            intent.putExtra("stars", Math.max(stars(), incomingStars));
+                            startActivity(intent);*/
 
                             finish();
                         }

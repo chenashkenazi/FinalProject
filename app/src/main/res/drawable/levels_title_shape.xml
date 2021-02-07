@@ -1,41 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<item>
-        <shape android:shape="rectangle">
-            <gradient
-                android:startColor="@color/light_gray_dark"
-                android:endColor="?attr/colorSecondaryVariant"
-                android:type="radial"
-                android:gradientRadius="80dp"/>
-            <padding android:bottom="2dp"
-                android:top="2dp"
-                android:right="2dp"
-                android:left="2dp"/>
-            <corners android:radius="40dp"/>
-        </shape>
-    </item>-->
-
-    <!--<item>
-        <shape android:shape="rectangle">
-            <gradient android:startColor="?attr/colorSecondary"
-                android:centerColor="?attr/colorSecondaryVariant"
-                android:endColor="@color/grass_darker"
-                android:angle="270"/>
-            <corners android:radius="10dp"/>
-            <stroke android:color="?attr/colorSecondaryVariant"
-                android:width="2dp"/>
-        </shape>
-    </item>-->
-
-    <item>
-        <shape android:shape="rectangle">
-            <gradient android:startColor="@color/light_gray_light"
-                android:centerColor="@color/light_gray_dark"
-                android:endColor="@color/medium_gray_light"
-                android:angle="270"/>
-            <corners android:radius="10dp"/>
-            <stroke android:color="@color/light_gray_dark"
-                android:width="2dp"/>
-        </shape>
-    </item>
-</layer-list>
+<bitmap
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/levels_fragment_title"
+    android:scaleType="centerCrop"
+    android:gravity="center"/>

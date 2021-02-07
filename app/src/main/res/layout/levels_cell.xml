@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center">
 
@@ -29,21 +28,21 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:src="@drawable/levels_selector_star"
             android:id="@+id/first_star"/>
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:src="@drawable/levels_selector_star"
             android:id="@+id/second_star"/>
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:src="@drawable/levels_selector_star"
             android:id="@+id/third_star"/>
