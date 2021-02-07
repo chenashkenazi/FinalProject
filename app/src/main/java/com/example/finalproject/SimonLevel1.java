@@ -3,6 +3,9 @@ package com.example.finalproject;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -27,6 +30,9 @@ public class SimonLevel1 extends AppCompatActivity {
     private int maxLength; //array's max length - sets differently for each subLevel
     public int[] array_of_moves; //the array of moves of the subLevel (created randomly in Simon's class)
     final Handler handler = new Handler();
+
+    //NEWWW
+    public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +129,7 @@ public class SimonLevel1 extends AppCompatActivity {
                     return true;
                 }
 
+                playSound(v.getId());
                 xorMyColor(v);
 
 
@@ -164,18 +171,22 @@ public class SimonLevel1 extends AppCompatActivity {
         final Runnable r = new Runnable() {
             public void run() {
                 if (array_of_moves[click_index] == 1) {
+                    playSound(R.id.level1_button_top_left);
                     xorMyColor(leftTop);
                 } else if (array_of_moves[click_index] == 2) {
+                    playSound(R.id.level1_button_top_right);
                     xorMyColor(rightTop);
                 } else if (array_of_moves[click_index] == 3) {
+                    playSound(R.id.level1_button_bottom_left);
                     xorMyColor(leftBottom);
                 } else {
+                    playSound(R.id.level1_button_bottom_right);
                     xorMyColor(rightBottom);
                 }
             }
         };
 
-        handler.postDelayed(r, 2000 * click_index);
+        handler.postDelayed(r, 1000 * click_index);
     }
 
     /*function that changes the background color and get it back after 500 milliseconds*/
@@ -188,6 +199,34 @@ public class SimonLevel1 extends AppCompatActivity {
             }
         };
         handler.postDelayed(r, 300);
+    }
+
+    private void playSound(int id) { //function that plays sound according to sound ID
+        int audioRes = 0;
+        switch (id) {
+            case R.id.level1_button_top_left:
+                audioRes = R.raw.sound2;
+                break;
+            case R.id.level1_button_top_right:
+                audioRes = R.raw.sound1;
+                break;
+            case R.id.level1_button_bottom_left:
+                audioRes = R.raw.sound3;
+                break;
+            case R.id.level1_button_bottom_right:
+                audioRes = R.raw.sound4;
+                break;
+
+        }
+
+        MediaPlayer p = MediaPlayer.create(this, audioRes);
+        p.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        p.start();
     }
 
     /*reset the game to initial state*/
