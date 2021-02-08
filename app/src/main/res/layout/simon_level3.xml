@@ -1,114 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
+    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:orientation="vertical">
+            android:layout_centerHorizontal="true">
 
             <ImageView
                 android:id="@+id/level3_left_top1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_level3_left_top1" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:layout_marginVertical="10dp"
-                android:src="@drawable/ic_level3_left_bottom2"
-                android:id="@+id/level3_left_bottom2"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:orientation="vertical">
+                android:src="@drawable/ic_level3_left_top1"
+                />
 
             <ImageView
                 android:id="@+id/level3_right_top1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_level3_right_top1"/>
+                android:src="@drawable/ic_level3_right_top1"
+                android:layout_marginLeft="80dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/layout2">
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
-                android:layout_marginVertical="10dp"
+                android:src="@drawable/ic_level3_left_top2"
+                android:id="@+id/level3_left_top2"
+                android:layout_marginTop="25dp"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_level3_right_top2"
+                android:id="@+id/level3_right_top2"
+                android:layout_toRightOf="@+id/level3_left_top2"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="30dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="105dp">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_level3_left_bottom1"
+                android:id="@+id/level3_left_bottom1" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_level3_right_bottom1"
+                android:id="@+id/level3_right_bottom1"
+                android:layout_toRightOf="@+id/level3_left_bottom1"
+                android:layout_marginLeft="30dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="105dp"
+            >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_level3_left_bottom2"
+                android:id="@+id/level3_left_bottom2"
+                android:layout_marginTop="25dp"
+                />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/ic_level3_right_bottom2"
-                android:id="@+id/level3_right_bottom2"/>
+                android:id="@+id/level3_right_bottom2"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="25dp"/>
 
-        </LinearLayout>
-    </LinearLayout>
+        </RelativeLayout>
 
-   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="43dp"
-            android:layout_marginLeft="50dp"
-            android:src="@drawable/ic_level3_left_top2"
-            android:id="@+id/level3_left_top2"/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="43dp"
-            android:layout_marginRight="50dp"
-            android:src="@drawable/ic_level3_right_top2"
-            android:id="@+id/level3_right_top2"/>
+    </RelativeLayout>
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
 
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-           android:layout_marginTop="32dp"
-            android:layout_marginLeft="55dp"
-            android:src="@drawable/ic_level3_left_bottom1"
-            android:id="@+id/level3_left_bottom1"/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="55dp"
-            android:src="@drawable/ic_level3_right_bottom1"
-            android:id="@+id/level3_right_bottom1"/>
-
-
-    </LinearLayout>
-</FrameLayout>
+</RelativeLayout>
