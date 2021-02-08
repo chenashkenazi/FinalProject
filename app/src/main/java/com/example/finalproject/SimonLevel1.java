@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -27,17 +28,16 @@ public class SimonLevel1 extends AppCompatActivity {
     public int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
     private int numberOfClicksEachStage = 0; //index in array_of_moves
     private int highScore = 0; //
-    private int colorClicked; //whether color has been touched
+    private int colorClicked = 0; //whether color has been touched
 
-    private int maxLength; //array's max length - sets differently for each subLevel
+    private int maxLength = 0; //array's max length - sets differently for each subLevel
     public int[] array_of_moves; //the array of moves of the subLevel (created randomly in Simon's class)
     final Handler handler = new Handler();
 
-    //NEWWW
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
-    private int number_of_level; //from LevelsFragment
-    private int incomingStars; //how much stars user has already
+    private int number_of_level = 0; //from LevelsFragment
+    private int incomingStars = 0; //how much stars user has already
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +57,9 @@ public class SimonLevel1 extends AppCompatActivity {
 
         //getting intent from LevelsFragment
         Intent incomingIntent = getIntent();
-        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0);
+        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0) + 1;
         incomingStars = incomingIntent.getIntExtra("numberOfStars",0);
+
 
         //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
         maxLength = 1; ////בדיקה!!!!!
@@ -67,9 +68,11 @@ public class SimonLevel1 extends AppCompatActivity {
         System.out.println("max length: " + maxLength);
         //array_of_moves = simon.getArray_of_moves(simon);
         array_of_moves = simon.getArrayOfMoves();
+
         for (int i = 0; i < maxLength; i++) {
             System.out.println(array_of_moves[i]);
         }
+
         final Runnable r = new Runnable() {
             public void run() {
                 playGame();
@@ -78,11 +81,10 @@ public class SimonLevel1 extends AppCompatActivity {
         handler.postDelayed(r, 2000);
     }
 
-
-
     ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+
             if (event.getAction() == MotionEvent.ACTION_UP) {
 
                 /*which color the user touched*/
@@ -99,7 +101,10 @@ public class SimonLevel1 extends AppCompatActivity {
                     case R.id.level1_button_bottom_right:
                         colorClicked = 4;
                         break;
+                }
 
+                if(numberOfElementsInMovesArray == maxLength){
+                    finishLevel();
                 }
 
                 /*if the user clicked on the wrong color*/
@@ -120,21 +125,7 @@ public class SimonLevel1 extends AppCompatActivity {
                     alertDialogBuilder.setNegativeButton("Back to level", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //finishing level and return to LevelsFragment with the amount of stars collected
-                            /*FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.levels_fragment,new LevelsFragment()).commit();*/
-
-                            Bundle args = new Bundle();
-                            args.putInt("stars", Math.max(stars(), incomingStars)); //change only if user got higher score
-                            args.putInt("number", number_of_level);
-                            LevelsFragment levelsFragment = new LevelsFragment();
-                            levelsFragment.setArguments(args);
-                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.levels_fragment, levelsFragment).commit();
-
-                            /*Intent intent = new Intent(SimonLevel1.this, LevelsFragment.class);
-                            intent.putExtra("stars", Math.max(stars(), incomingStars));
-                            startActivity(intent);*/
+                            finishLevel();
 
                             finish();
                         }
@@ -149,7 +140,6 @@ public class SimonLevel1 extends AppCompatActivity {
                 playSound(v.getId());
                 xorMyColor(v);
 
-
                 numberOfClicksEachStage++;
                 /*if the user clicked on the right color*/
                 if (numberOfElementsInMovesArray == numberOfClicksEachStage) {
@@ -160,6 +150,7 @@ public class SimonLevel1 extends AppCompatActivity {
                     if (numberOfElementsInMovesArray > highScore) {
                         highScore = numberOfElementsInMovesArray;
                     }
+
 
                     final Runnable r = new Runnable() {
                         public void run() {
@@ -174,7 +165,6 @@ public class SimonLevel1 extends AppCompatActivity {
         }
 
     };
-
 
     public void playGame() {
         numberOfElementsInMovesArray++;
@@ -210,7 +200,7 @@ public class SimonLevel1 extends AppCompatActivity {
     private void xorMyColor(final View v) {
 
         v.setAlpha(0.5f);
-            final Runnable r = new Runnable() {
+        final Runnable r = new Runnable() {
             public void run() {
                 v.setAlpha(1.0f);
             }
@@ -264,5 +254,13 @@ public class SimonLevel1 extends AppCompatActivity {
             return 3;
     }
 
+    /*finish Level and sending Intent To LevelFragment*/
+    private void finishLevel(){
+        //finishing level and return to LevelsFragment with the amount of stars collected
+        Intent intent = new Intent(SimonLevel1.this,LevelsActivity.class);
+        intent.putExtra("starsSimonLevel1",(Math.max(stars(), incomingStars)));  //change only if user got higher score
+        intent.putExtra("numberSimonLevel1",number_of_level - 1);
+        startActivity(intent);
+    }
 
 }

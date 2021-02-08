@@ -5,7 +5,7 @@
             <item>
                 <shape android:shape="rectangle">
                     <gradient
-                        android:startColor="?attr/colorOnBackground"
+                        android:startColor="@null"
                         android:endColor="?attr/colorPrimaryVariant"
                         android:type="radial"
                         android:gradientRadius="200dp"/>

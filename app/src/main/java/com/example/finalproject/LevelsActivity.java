@@ -1,8 +1,6 @@
 package com.example.finalproject;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,6 @@ public class LevelsActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private Button button;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

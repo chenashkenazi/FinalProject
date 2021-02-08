@@ -119,13 +119,13 @@ public class LevelsFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.levels_fragment,container,false);
 
         //receiving data from SimonLevel1
-        receiveStars = getArguments().getInt("stars");
-        receiveNumber = getArguments().getInt("number");
+        Intent incomingIntent = Objects.requireNonNull(getActivity()).getIntent();
+        receiveStars = incomingIntent.getIntExtra("starsSimonLevel1",0);
+        receiveNumber = incomingIntent.getIntExtra("numberSimonLevel1",0);
 
-        return view;
+        return inflater.inflate(R.layout.levels_fragment,container,false);
     }
 
     @Override
@@ -221,7 +221,8 @@ public class LevelsFragment extends Fragment{
             levelBtn.setWidth((displayMetrics.heightPixels)/9);
             levelBtn.setHeight((displayMetrics.heightPixels)/10);
 
-            if (i == (receiveNumber-1) && receiveStars > 0){
+
+            if (i == receiveNumber && receiveStars > 0){
 
                 number_of_subLevels_completed++;
                 subLevels[i].setComplete(true);
@@ -289,7 +290,7 @@ public class LevelsFragment extends Fragment{
 
         private void sentInstance(int i){
             Intent intent = new Intent(LevelsFragment.this.getActivity(),SimonLevel1.class);
-            intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber()+1);
+            intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
             intent.putExtra("numberOfStars",subLevels[i].getStars());
             startActivity(intent);
         }

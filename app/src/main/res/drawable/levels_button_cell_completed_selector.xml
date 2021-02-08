@@ -5,7 +5,7 @@
             <item>
                 <shape android:shape="rectangle">
                     <gradient
-                        android:startColor="?attr/colorOnBackground"
+                        android:startColor="@null"
                         android:endColor="?attr/colorSecondaryVariant"
                         android:type="radial"
                         android:gradientRadius="200dp"/>
@@ -50,7 +50,7 @@
 
             <item>
                 <shape android:shape="rectangle">
-                    <stroke android:color="@color/grass_darker"
+                    <stroke android:color="@color/mint_darker"
                         android:width="3dp"/>
                     <padding android:bottom="5dp"
                         android:right="3dp"
@@ -61,7 +61,7 @@
             <item>
                 <shape android:shape="rectangle">
                     <gradient android:startColor="?attr/colorSecondary"
-                        android:endColor="@color/grass_darker"
+                        android:endColor="@color/mint_darker"
                         android:angle="45"/>
                     <corners android:radius="30dp"/>
                 </shape>
