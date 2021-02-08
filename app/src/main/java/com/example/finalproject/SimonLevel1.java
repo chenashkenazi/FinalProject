@@ -104,6 +104,7 @@ public class SimonLevel1 extends AppCompatActivity {
                 }
 
                 if(numberOfElementsInMovesArray == maxLength){
+                    clear();
                     finishLevel();
                 }
 
