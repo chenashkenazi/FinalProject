@@ -1,35 +1,27 @@
 package com.example.finalproject;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import com.example.finalproject.resourses.Levels;
 
 import java.util.Objects;
 
 import static com.example.finalproject.resourses.Levels.FIRST_LEVEL;
+import static com.example.finalproject.resourses.Levels.SECOND_LEVEL;
+import static com.example.finalproject.resourses.Levels.THIRD_LEVEL;
 
 /*Here we're going to create the fragment for each level.
  each level will contains:
@@ -71,9 +63,7 @@ public class LevelsFragment extends Fragment{
 
     private final SubLevel[] subLevels = new SubLevel[16];
 
-    private int number_of_subLevels_completed = 0;
-
-    private int receiveStars = 0, receiveNumber = 0;
+    private int number_of_subLevels_completed = 0; // if %16==0 then switch to next level
 
     //creating a new fragment instance
     public static LevelsFragment getInstance(Level level){
@@ -104,27 +94,33 @@ public class LevelsFragment extends Fragment{
             level = getArguments().getParcelable("level");
         }
 
-        for (int i=0 ; i<16 ; i++){
-            subLevels[i] = new SubLevel(i);
+        if (number_of_subLevels_completed == 0){
+            for (int i=0 ; i<16 ; i++){
+                subLevels[i] = new SubLevel(i);
+            }
         }
-        /*subLevels[0].setComplete(true);
-        subLevels[0].setStars(1);
-        subLevels[1].setComplete(true);
-        subLevels[1].setStars(3);
-        subLevels[2].setComplete(true);
-        subLevels[2].setStars(2);*/
+
+        //receiving data from SimonLevel1
+        Intent incomingIntent = Objects.requireNonNull(getActivity()).getIntent();
+        int receiveStars = incomingIntent.getIntExtra("starsSimon", 0);
+        int receiveSubLevel = incomingIntent.getIntExtra("subLevelSimon",0);
+        int receiveLevel = incomingIntent.getIntExtra("levelSimon",0);
+
+        if ((level == FIRST_LEVEL && receiveLevel == 4) ||
+                (level == SECOND_LEVEL && receiveLevel == 6) ||
+                (level == THIRD_LEVEL && receiveLevel == 8)){
+            if (receiveStars > subLevels[receiveSubLevel].getStars()) {
+                number_of_subLevels_completed++;
+                subLevels[receiveSubLevel].setComplete(true);
+                subLevels[receiveSubLevel].setStars(receiveStars);
+            }
+        }
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        //receiving data from SimonLevel1
-        Intent incomingIntent = Objects.requireNonNull(getActivity()).getIntent();
-        receiveStars = incomingIntent.getIntExtra("starsSimonLevel1",0);
-        receiveNumber = incomingIntent.getIntExtra("numberSimonLevel1",0);
-
         return inflater.inflate(R.layout.levels_fragment,container,false);
     }
 
@@ -145,11 +141,10 @@ public class LevelsFragment extends Fragment{
         //to set the different properties to the widgets
         if(level != null){
 
+            CustomAdapter customAdapter = new CustomAdapter(); //making each cell
+
             levelNumTv.setText(level.getTitle());
-
-            CustomAdapter customAdapter = new CustomAdapter();
-
-            gridView.setAdapter(customAdapter);
+            gridView.setAdapter(customAdapter); //setting each cell in grid
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -221,27 +216,19 @@ public class LevelsFragment extends Fragment{
             levelBtn.setWidth((displayMetrics.heightPixels)/9);
             levelBtn.setHeight((displayMetrics.heightPixels)/10);
 
-
-            if (i == receiveNumber && receiveStars > 0){
-
-                number_of_subLevels_completed++;
-                subLevels[i].setComplete(true);
-                subLevels[i].setStars(receiveStars);
-
-                //activating stars
-                switch (subLevels[i].getStars()){
-                    case 1:
-                        star1Iv.setActivated(true);
-                        break;
-                    case 2:
-                        star1Iv.setActivated(true);
-                        star2Iv.setActivated(true);
-                        break;
-                    case 3:
-                        star1Iv.setActivated(true);
-                        star2Iv.setActivated(true);
-                        star3Iv.setActivated(true);
-                }
+            //activating stars
+            switch (subLevels[i].getStars()){
+                case 1:
+                    star1Iv.setActivated(true);
+                    break;
+                case 2:
+                    star1Iv.setActivated(true);
+                    star2Iv.setActivated(true);
+                    break;
+                case 3:
+                    star1Iv.setActivated(true);
+                    star2Iv.setActivated(true);
+                    star3Iv.setActivated(true);
             }
 
             if (subLevels[15].isComplete()){

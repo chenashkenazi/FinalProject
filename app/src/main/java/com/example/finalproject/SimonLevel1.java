@@ -258,8 +258,9 @@ public class SimonLevel1 extends AppCompatActivity {
     private void finishLevel(){
         //finishing level and return to LevelsFragment with the amount of stars collected
         Intent intent = new Intent(SimonLevel1.this,LevelsActivity.class);
-        intent.putExtra("starsSimonLevel1",(Math.max(stars(), incomingStars)));  //change only if user got higher score
-        intent.putExtra("numberSimonLevel1",number_of_level - 1);
+        intent.putExtra("starsSimon",(Math.max(stars(), incomingStars)));  //change only if user got higher score
+        intent.putExtra("subLevelSimon",number_of_level - 1);
+        intent.putExtra("levelSimon",4);
         startActivity(intent);
     }
 
