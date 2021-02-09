@@ -36,9 +36,9 @@ public class SimonLevel1 extends AppCompatActivity {
 
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
-    private int number_of_level = 0; //from LevelsFragment
+    /*arguments from LevelsFragment*/
+    private int number_of_level = 0;
     private int incomingStars = 0; //how many stars user has already
-    private int[] incomingArrayOfMoves;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,20 +58,20 @@ public class SimonLevel1 extends AppCompatActivity {
 
         //getting intent from LevelsFragment
         Intent incomingIntent = getIntent();
-        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0) + 1;
+        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0) + 1; //number_of_level starts at 0
         incomingStars = incomingIntent.getIntExtra("numberOfStars",0);
-        incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
+        int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
 
         //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
         maxLength = 1; ////בדיקה!!!!!
 
         simon = new Simon(maxLength, amountOfImageView);
-        //System.out.println("max length: " + maxLength);
-        //array_of_moves = simon.getArray_of_moves(simon);
 
+        //System.out.println("max length: " + maxLength);
+
+        //array_of_moves = simon.getArray_of_moves(simon);
         array_of_moves = simon.getArrayOfMoves();
 
-        /*ניסיון נואש לשחזר את מערך הצעדים שקיבלנו מ-LevelsFragment*/
         //if there is an array already
         if (incomingArrayOfMoves != null) {
             simon.changeArrayOfMoves(incomingArrayOfMoves);
@@ -159,7 +159,6 @@ public class SimonLevel1 extends AppCompatActivity {
                         highScore = numberOfElementsInMovesArray;
                     }
 
-
                     final Runnable r = new Runnable() {
                         public void run() {
                             playGame();
@@ -216,7 +215,8 @@ public class SimonLevel1 extends AppCompatActivity {
         handler.postDelayed(r, 300);
     }
 
-    private void playSound(int id) { //function that plays sound according to sound ID
+    /*function that plays sound according to sound ID*/
+    private void playSound(int id) {
         int audioRes = 0;
         switch (id) {
             case R.id.level1_button_top_left:
@@ -277,7 +277,7 @@ public class SimonLevel1 extends AppCompatActivity {
         }
         else if (result == 0) {
             setResult(RESULT_CANCELED, resultIntent);
-            resultIntent.putExtra("starsSimon",incomingStars);  //change only if user got higher score
+            resultIntent.putExtra("starsSimon",incomingStars);
         }
         finish();
     }

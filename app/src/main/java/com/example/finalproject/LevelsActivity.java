@@ -24,6 +24,7 @@ public class LevelsActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.levels_view_pager);
         tabLayout = findViewById(R.id.levels_tab_layout);
+        //viewPager.setLayoutDirection();
 
         init();
     }

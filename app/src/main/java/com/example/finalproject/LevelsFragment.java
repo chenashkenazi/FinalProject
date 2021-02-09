@@ -67,7 +67,7 @@ public class LevelsFragment extends Fragment{
 
     //private int number_of_subLevels_completed = 0; // if %16==0 then switch to next level
 
-    private static int numOfLevelsCompleted = 0;
+    private int numOfLevelsCompleted = 0;
     private int numOfSubLevelsCompleted = 0;
 
     //creating a new fragment instance
@@ -99,40 +99,25 @@ public class LevelsFragment extends Fragment{
             level = getArguments().getParcelable("level");
         }
 
-        //Toast.makeText(getActivity(), level.getTitle(), Toast.LENGTH_SHORT).show();
-
         //creating new subLevels only at the beginning
         if (numOfSubLevelsCompleted == 0){
             for (int i=0 ; i<16 ; i++){
                 subLevels[i] = new SubLevel(i);
             }
             level.setSubLevels(subLevels);
-        }
+            switch (level.getColor()){
+                case 4:
+                    level.setTitle(getResources().getString(R.string.level_four_colors));
+                    break;
+                case 6:
+                    level.setTitle(getResources().getString(R.string.level_six_colors));
+                    break;
+                case 8:
+                    level.setTitle(getResources().getString(R.string.level_eight_colors));
+                    break;
 
-        //receiving data from SimonLevel1
-        /*Intent incomingIntent = Objects.requireNonNull(getActivity()).getIntent();
-        int receiveStars = incomingIntent.getIntExtra("starsSimon", 0);
-        int receiveSubLevel = incomingIntent.getIntExtra("subLevelSimon",0);
-        int receiveLevel = incomingIntent.getIntExtra("levelSimon",0);*/
-
-        //updating the correct subLevel
-        /*if ((level.getLevelNumber() == receiveLevel) &&
-                (receiveStars > subLevels[receiveSubLevel].getStars())) {
-            number_of_subLevels_completed++;
-            subLevels[receiveSubLevel].setComplete(true);
-            subLevels[receiveSubLevel].setStars(receiveStars);
-        }*/
-        /*if ((level == FIRST_LEVEL && receiveLevel == 4) ||
-                (level == SECOND_LEVEL && receiveLevel == 6) ||
-                (level == THIRD_LEVEL && receiveLevel == 8)){
-            if (receiveStars > subLevels[receiveSubLevel].getStars()) {
-                number_of_subLevels_completed++;
-                subLevels[receiveSubLevel].setComplete(true);
-                subLevels[receiveSubLevel].setStars(receiveStars);
             }
-        }*/
-
-
+        }
     }
 
     @Nullable
@@ -167,30 +152,7 @@ public class LevelsFragment extends Fragment{
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     //..
-                    //לשלוח ל-SimonLevel1 את מספר השלב (INT) הנוכחי לפי ה-title
-                    //מקבלת בחזרה את כמות הכוכבים
-                    /*Intent intent;
-                    switch (level.getTitle()){
-                        case "LEVEL 1":
-                            intent = new Intent(getActivity().getApplicationContext(),SimonLevel1.class);
-                            intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
-                            startActivity(intent);
-                            break;
-                        case "LEVEL 2":
-
-                            break;
-                        case "LEVEL 3":
-
-                            break;
-                    }
-*/
-
-                    //if subLevel completed:
-                    /*subLevels[number_of_subLevels_completed].setStars(1); //1-3
-                    level.setSubLevels(subLevels);*/
-                    //number_of_subLevels_completed++;
-                    //init();
-
+                    Toast.makeText(getActivity(), "!!!!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -224,20 +186,8 @@ public class LevelsFragment extends Fragment{
 
             levelBtn.setText(level_number);
 
-            //Toast.makeText(getActivity(), level.getSubLevels()[i].getStars(), Toast.LENGTH_SHORT).show();
-
             //setting subLevel's levelNumber
-            switch (level.getTitle()) {
-                case "4 COLORS":
-                    subLevels[i].setLevelNumber(4);
-                    break;
-                case "6 COLORS":
-                    subLevels[i].setLevelNumber(6);
-                    break;
-                case "8 COLORS":
-                    subLevels[i].setLevelNumber(8);
-                    break;
-            }
+            subLevels[i].setLevelNumber(level.getColor());
 
             //set the grid's display
             DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -263,23 +213,18 @@ public class LevelsFragment extends Fragment{
             //setting the button-cell's drawable and un-clickable (from selector)
             switch (numOfLevelsCompleted){
                 case 0:
-                    if (level.getTitle().equals("4 COLORS")){
+                    if (level.getColor() == 4)
                         setButtonsInLevel(levelBtn,i,false);
-                    }else
+                    else
                         levelBtn.setEnabled(false); //not clickable
                     break;
                 case 1:
-                    switch (level.getTitle()){
-                        case "4 COLORS":
-                            setButtonsInLevel(levelBtn,i,true);
-                            break;
-                        case "6 COLORS":
-                            setButtonsInLevel(levelBtn,i,false);
-                            break;
-                        case "8 COLORS":
-                            levelBtn.setEnabled(false); //not clickable
-                            break;
-                    }
+                    if (level.getColor() == 4)
+                        setButtonsInLevel(levelBtn,i,true);
+                    else if (level.getColor() == 6)
+                        setButtonsInLevel(levelBtn,i,false);
+                    else if (level.getColor() == 8)
+                        levelBtn.setEnabled(false); //not clickable
                     break;
                 case 2:
                     setButtonsInLevel(levelBtn,i,true);
@@ -289,21 +234,55 @@ public class LevelsFragment extends Fragment{
             levelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    sentInstance(i);
+                    //sentInstance(i);
+                    //Toast.makeText(getActivity(), subLevels[i].getLevelNumber()+"", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), com.example.finalproject.SimonLevel.class);
+                    intent.putExtra("levelNumber",subLevels[i].getLevelNumber());
+                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
+                    intent.putExtra("numberOfStars",subLevels[i].getStars());
+                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
+                    startActivityForResult(intent,1);
                 }
             });
             return grid;
         }
 
-        private void sentInstance(int i){
-            Intent intent = new Intent(LevelsFragment.this.getActivity(),SimonLevel1.class);
+        /*private void sentInstance(int i){
+            Intent intent = new Intent(getActivity(), SimonLevel.class);
+            intent.putExtra("levelNumber",subLevels[i].getLevelNumber());
             intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
-            intent.putExtra("numberOfStars",subLevels[i].getStars());
             intent.putExtra("numberOfStars",subLevels[i].getStars());
             intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
 
             startActivityForResult(intent,1);
-        }
+
+            *//*switch (level.getTitle()){
+                case "4 COLORS":
+                    intent = new Intent(LevelsFragment.this.getActivity(), SimonLevel1.class);
+                    intent.putExtra("levelNumber",4);
+                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
+                    intent.putExtra("numberOfStars",subLevels[i].getStars());
+                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
+                    startActivityForResult(intent,1);
+                    break;
+                case "6 COLORS":
+                    intent = new Intent(LevelsFragment.this.getActivity(), SimonLevel2.class);
+                    intent.putExtra("levelNumber",6);
+                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
+                    intent.putExtra("numberOfStars",subLevels[i].getStars());
+                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
+                    startActivityForResult(intent,1);
+                    break;
+                case "8 COLORS":
+                    intent = new Intent(LevelsFragment.this.getActivity(), SimonLevel3.class);
+                    intent.putExtra("levelNumber",8);
+                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
+                    intent.putExtra("numberOfStars",subLevels[i].getStars());
+                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
+                    startActivityForResult(intent,1);
+                    break;
+            }*//*
+        }*/
 
         private void setButtonsInLevel(Button levelBtn, int i, boolean completed){
             if (!completed) {
@@ -333,9 +312,9 @@ public class LevelsFragment extends Fragment{
             }else{
                 levelBtn.setActivated(false); //not next
                 levelBtn.setSelected(true); //completed
+                levelBtn.setEnabled(true);
             }
         }
-
     }
 
     @Override
@@ -343,26 +322,18 @@ public class LevelsFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1){
-            if (resultCode == -1 && data != null){
+            if (data != null && resultCode == -1){
                 //receiving data from SimonLevel1
                 int receiveStars = data.getIntExtra("starsSimon", 0);
                 int receiveSubLevel = data.getIntExtra("subLevelSimon",0);
                 int receiveLevel = data.getIntExtra("levelSimon",0);
                 int[] receiveArrayOfMoves = data.getIntArrayExtra("getArrayOfMoves");
 
-                //updating the correct subLevel
-                if ((level == FIRST_LEVEL && receiveLevel == 4) ||
-                        (level == SECOND_LEVEL && receiveLevel == 6) ||
-                        (level == THIRD_LEVEL && receiveLevel == 8)) {
-                    if (receiveStars > subLevels[receiveSubLevel].getStars()) {
-                        numOfSubLevelsCompleted++;
-                        subLevels[receiveSubLevel].setComplete(true);
-                        subLevels[receiveSubLevel].setStars(receiveStars);
-                        subLevels[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);
-
-                        //Toast.makeText(getActivity(), subLevels[receiveSubLevel].getStars()+"", Toast.LENGTH_SHORT).show();
-
-                    }
+                if (level.getColor() == receiveLevel){
+                    numOfSubLevelsCompleted++;
+                    subLevels[receiveSubLevel].setComplete(true);
+                    subLevels[receiveSubLevel].setStars(receiveStars);
+                    subLevels[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);
                 }
 
                 init();

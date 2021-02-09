@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">Simon</string>
+    <string name="play_btn">PLAY</string>
+    <string name="reset_game_btn">reset game</string>
+    <string name="level_four_colors">4 COLORS</string>
+    <string name="level_six_colors">6 COLORS</string>
+    <string name="level_eight_colors">8 COLORS</string>
+    <string name="confirm_restart">confirm restart</string>
+    <string name="confirm_restart_message">Are you sure you want to restart your game?</string>
+    <string name="no">NO</string>
+    <string name="yes">yes</string>
+    <string name="game_restarted">game progress restarted</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="replay">REPLAY</string>
+    <string name="exit">EXIT</string>
 </resources>

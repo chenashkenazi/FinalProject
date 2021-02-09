@@ -29,21 +29,23 @@ public class SimonLevel3 extends AppCompatActivity {
     public int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
     private int numberOfClicksEachStage = 0; //index in array_of_moves
     private int highScore = 0; //
-    private int colorClicked; //whether color has been touched
+    private int colorClicked = 0; //whether color has been touched
 
-    private int maxLength; //array's max length - sets differently for each subLevel
+    private int maxLength = 0; //array's max length - sets differently for each subLevel
     public int[] array_of_moves; //the array of moves of the subLevel (created randomly in Simon's class)
     final Handler handler = new Handler();
 
-    //NEWWW
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+
+    /*arguments from LevelsFragment*/
+    private int number_of_level = 0;
+    private int incomingStars = 0; //how many stars user has already
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simon_level3);
 
         int amountOfImageView = 8;
-        int number_of_level; //from LevelsFragment
 
         leftTop1 = findViewById(R.id.level3_left_top1);
         leftBottom1 = findViewById(R.id.level3_left_bottom1);
@@ -66,17 +68,30 @@ public class SimonLevel3 extends AppCompatActivity {
 
         //getting intent from LevelsFragment
         Intent incomingIntent = getIntent();
-        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0);
+        number_of_level = incomingIntent.getIntExtra("subLevelNumber",0) + 1;
+        incomingStars = incomingIntent.getIntExtra("numberOfStars",0);
+        int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
 
-        maxLength = (number_of_level + 2) * 3 + 1;
+        //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
+        maxLength = 1; ////בדיקה!!!!!
 
         simon = new Simon(maxLength, amountOfImageView);
-        System.out.println("max length: " + maxLength);
+
+        //System.out.println("max length: " + maxLength);
+
         //array_of_moves = simon.getArray_of_moves(simon);
         array_of_moves = simon.getArrayOfMoves();
-        for (int i = 0; i < maxLength; i++) {
-            System.out.println(array_of_moves[i]);
+
+        //if there is an array already
+        if (incomingArrayOfMoves != null) {
+            simon.changeArrayOfMoves(incomingArrayOfMoves);
+            array_of_moves = incomingArrayOfMoves;
         }
+
+        /*for (int i = 0; i < maxLength; i++) {
+            System.out.println(array_of_moves[i]);
+        }*/
+
         final Runnable r = new Runnable() {
             public void run() {
                 playGame();
@@ -118,8 +133,12 @@ public class SimonLevel3 extends AppCompatActivity {
                     case R.id.level3_right_top1:
                         colorClicked = 48;
                         break;
-
                     }
+
+                if(numberOfElementsInMovesArray == maxLength){
+                    clear();
+                    finishLevel(-1); //-1 if OK
+                }
 
                 /*if the user clicked on the wrong color*/
                 if (array_of_moves[numberOfClicksEachStage] != colorClicked) {
@@ -139,11 +158,7 @@ public class SimonLevel3 extends AppCompatActivity {
                     alertDialogBuilder.setNegativeButton("Back to level", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //finishing level and return to LevelsFragment with the amount of stars collected
-                            Intent intent = new Intent(SimonLevel3.this, LevelsFragment.class);
-                            intent.putExtra("stars", stars());
-                            startActivity(intent);
-
+                            finishLevel(0); //0 if CANCELED
                             finish();
                         }
 
@@ -161,8 +176,6 @@ public class SimonLevel3 extends AppCompatActivity {
                 numberOfClicksEachStage++;
                 /*if the user clicked on the right color*/
                 if (numberOfElementsInMovesArray == numberOfClicksEachStage) {
-                    //if 4 boxes shown, then activate function
-                    //playGame only after 4 clicks have been made by the user
 
                     numberOfClicksEachStage = 0;
                     if (numberOfElementsInMovesArray > highScore) {
@@ -238,7 +251,8 @@ public class SimonLevel3 extends AppCompatActivity {
         handler.postDelayed(r, 300);
     }
 
-    private void playSound(int id) { //function that plays sound according to sound ID
+    /*function that plays sound according to sound ID*/
+    private void playSound(int id) {
         int audioRes = 0;
         switch (id) {
             case R.id.level3_left_top1:
@@ -289,11 +303,30 @@ public class SimonLevel3 extends AppCompatActivity {
             return 0;
         else if (this.numberOfElementsInMovesArray < (2 * this.maxLength / 3))
             return 1;
-        else if (this.numberOfElementsInMovesArray < this.maxLength)
+        else if (this.numberOfElementsInMovesArray < this.maxLength-1)
             return 2;
         else
             return 3;
     }
 
+    /*finish Level and sending Intent To LevelFragment*/
+    private void finishLevel(int result){
+        //finishing level and return to LevelsFragment with the amount of stars collected
+        Intent resultIntent = new Intent();
+        //Toast.makeText(this, stars()+"", Toast.LENGTH_SHORT).show();
+        resultIntent.putExtra("subLevelSimon",number_of_level - 1);
+        resultIntent.putExtra("levelSimon",8);
+        resultIntent.putExtra("getArrayOfMoves",array_of_moves);
+
+        if (result == -1) {
+            setResult(RESULT_OK, resultIntent);
+            resultIntent.putExtra("starsSimon",(Math.max(stars(), incomingStars)));  //change only if user got higher score
+        }
+        else if (result == 0) {
+            setResult(RESULT_CANCELED, resultIntent);
+            resultIntent.putExtra("starsSimon",incomingStars);
+        }
+        finish();
+    }
 
 }
