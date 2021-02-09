@@ -140,7 +140,7 @@ public class SimonLevel extends AppCompatActivity {
         }
 
         //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
-        maxLength = 3; ////בדיקה!!!!!
+        maxLength = 1; ////בדיקה!!!!!
 
         Simon simon = new Simon(maxLength, amountOfImageView);
 
@@ -517,7 +517,7 @@ public class SimonLevel extends AppCompatActivity {
         Intent resultIntent = new Intent();
 
         //if need to update the subLevel in LevelsFragment
-        if (incomingStars < stars()) {
+        if (numberOfElementsInMovesArray != 0) {
             setResult(RESULT_OK, resultIntent);
 
             //load extras

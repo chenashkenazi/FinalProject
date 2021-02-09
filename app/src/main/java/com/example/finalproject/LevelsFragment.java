@@ -151,8 +151,8 @@ public class LevelsFragment extends Fragment{
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //..
-                    Toast.makeText(getActivity(), "!!!!", Toast.LENGTH_SHORT).show();
+                    //לחיצה ארוכה...
+                    //Toast.makeText(getActivity(), "!!!!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -210,15 +210,19 @@ public class LevelsFragment extends Fragment{
                     star3Iv.setActivated(true);
             }
 
+            //Toast.makeText(getActivity(), numOfLevelsCompleted+" completed", Toast.LENGTH_SHORT).show();
+
             //setting the button-cell's drawable and un-clickable (from selector)
             switch (numOfLevelsCompleted){
                 case 0:
+                    //only "4 COLORS" level is open
                     if (level.getColor() == 4)
                         setButtonsInLevel(levelBtn,i,false);
                     else
                         levelBtn.setEnabled(false); //not clickable
                     break;
                 case 1:
+                    //"4 COLORS" level is all blue, "6 COLORS" level is open
                     if (level.getColor() == 4)
                         setButtonsInLevel(levelBtn,i,true);
                     else if (level.getColor() == 6)
@@ -234,8 +238,6 @@ public class LevelsFragment extends Fragment{
             levelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //sentInstance(i);
-                    //Toast.makeText(getActivity(), subLevels[i].getLevelNumber()+"", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), com.example.finalproject.SimonLevel.class);
                     intent.putExtra("levelNumber",subLevels[i].getLevelNumber());
                     intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
@@ -247,49 +249,12 @@ public class LevelsFragment extends Fragment{
             return grid;
         }
 
-        /*private void sentInstance(int i){
-            Intent intent = new Intent(getActivity(), SimonLevel.class);
-            intent.putExtra("levelNumber",subLevels[i].getLevelNumber());
-            intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
-            intent.putExtra("numberOfStars",subLevels[i].getStars());
-            intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
-
-            startActivityForResult(intent,1);
-
-            *//*switch (level.getTitle()){
-                case "4 COLORS":
-                    intent = new Intent(LevelsFragment.this.getActivity(), SimonLevel1.class);
-                    intent.putExtra("levelNumber",4);
-                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
-                    intent.putExtra("numberOfStars",subLevels[i].getStars());
-                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
-                    startActivityForResult(intent,1);
-                    break;
-                case "6 COLORS":
-                    intent = new Intent(LevelsFragment.this.getActivity(), SimonLevel2.class);
-                    intent.putExtra("levelNumber",6);
-                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
-                    intent.putExtra("numberOfStars",subLevels[i].getStars());
-                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
-                    startActivityForResult(intent,1);
-                    break;
-                case "8 COLORS":
-                    intent = new Intent(LevelsFragment.this.getActivity(), SimonLevel3.class);
-                    intent.putExtra("levelNumber",8);
-                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
-                    intent.putExtra("numberOfStars",subLevels[i].getStars());
-                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
-                    startActivityForResult(intent,1);
-                    break;
-            }*//*
-        }*/
-
         private void setButtonsInLevel(Button levelBtn, int i, boolean completed){
             if (!completed) {
                 if (i != 0)
                     levelBtn.setEnabled(false); //not clickable
                 if (i == 0 && !subLevels[i].isComplete()) {
-                    //אם נמצאים בשלב הראשון (הוא לא הושלם)
+                    //אם נמצאים בשלב הראשון והוא לא הושלם - נהפוך אותו לירוק
                     levelBtn.setEnabled(true); //clickable
                     levelBtn.setActivated(true); //next
                 } else if (i > 0 && i < 15 && subLevels[i - 1].isComplete() && !subLevels[i + 1].isComplete()) {
@@ -304,10 +269,6 @@ public class LevelsFragment extends Fragment{
                 if (subLevels[i].isComplete()) {
                     levelBtn.setActivated(false); //not next
                     levelBtn.setSelected(true); //completed
-                    if (i==15){
-                        numOfLevelsCompleted++;
-                        //Toast.makeText(getActivity(), numOfLevelsCompleted+"", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }else{
                 levelBtn.setActivated(false); //not next
@@ -334,6 +295,10 @@ public class LevelsFragment extends Fragment{
                     subLevels[receiveSubLevel].setComplete(true);
                     subLevels[receiveSubLevel].setStars(receiveStars);
                     subLevels[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);
+                    if (receiveSubLevel == 15) {
+                        numOfLevelsCompleted++;
+                        //Toast.makeText(getActivity(), numOfLevelsCompleted+"", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 init();
