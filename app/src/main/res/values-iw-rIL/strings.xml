@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">סיימון</string>
+    <string name="play_btn">שחק</string>
+    <string name="reset_game_btn">אפס משחק</string>
+    <string name="level_four_colors">4 צבעים</string>
+    <string name="level_six_colors">6 צבעים</string>
+    <string name="level_eight_colors">8 צבעים</string>
+    <string name="confirm_restart">אשר התחלה חדשה</string>
+    <string name="confirm_restart_message">האם אתה בטוח שאתה רוצה להתחיל את המשחק מחדש?</string>
+    <string name="no">לא</string>
+    <string name="yes">כן</string>
+    <string name="game_restarted">המשחק אותחל מחדש</string>
+    <string name="game_over">המשחק נגמר</string>
+    <string name="replay">שחק שוב</string>
+    <string name="exit">צא</string>
+</resources>

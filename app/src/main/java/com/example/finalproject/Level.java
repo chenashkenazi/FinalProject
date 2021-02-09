@@ -1,16 +1,26 @@
 package com.example.finalproject;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.Toast;
 
 public class Level implements Parcelable {
 
     private String title;
     private SubLevel[] subLevels;
+    private int color;
 
-    public Level(String title) {
-        setTitle(title);
+    public Level(int colors) {
+        setColor(colors);
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public String getTitle() {

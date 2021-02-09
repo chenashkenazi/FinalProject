@@ -38,14 +38,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PLAY"
+            android:text="@string/play_btn"
             android:id="@+id/play_btn"
             style="@style/ButtonMainPlay"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset Game"
+            android:text="@string/reset_game_btn"
             android:id="@+id/reset_game_btn"
             style="@style/ButtonMainReset"/>
     </LinearLayout>

@@ -38,19 +38,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Confirm restart").setMessage("Are you sure you want to reset your progress?")
-                        .setPositiveButton("Yes", new MyAlertDialogListener()).setNegativeButton("No", new MyAlertDialogListener()).setCancelable(false).show();
+                builder.setTitle(R.string.confirm_restart).setMessage(R.string.confirm_restart_message)
+                        .setPositiveButton(R.string.yes, new MyAlertDialogListener()).setNegativeButton(R.string.no, new MyAlertDialogListener()).setCancelable(false).show();
             }
         });
-
-
     }
 
     private class MyAlertDialogListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             if (which == DialogInterface.BUTTON_POSITIVE) {
-                Toast.makeText(MainActivity.this, "Game progress restarted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.game_restarted, Toast.LENGTH_SHORT).show();
             }
         }
     }
