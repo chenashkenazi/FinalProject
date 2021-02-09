@@ -8,11 +8,13 @@ public class SubLevel{
     private int subLevelNumber; //the index in Level[]. exp: the first level in level1
     private int stars; //0=not passed the level, 1-3
     private boolean isComplete; //status
+    private int[] arrayOfMoves;
+    private int levelNumber;
 
     public SubLevel(int subLevelNumber) {
         this.subLevelNumber = subLevelNumber;
-        this.stars = 0;
-        this.isComplete = false;
+        setStars(0);
+        setComplete(false);
     }
 
     public int getSubLevelNumber() {
@@ -39,4 +41,19 @@ public class SubLevel{
         isComplete = complete;
     }
 
+    public int[] getArrayOfMoves() {
+        return arrayOfMoves;
+    }
+
+    public void setArrayOfMoves(int[] arrayOfMoves) {
+        this.arrayOfMoves = arrayOfMoves;
+    }
+
+    public int getLevelNumber() {
+        return levelNumber;
+    }
+
+    public void setLevelNumber(int levelNumber) {
+        this.levelNumber = levelNumber;
+    }
 }

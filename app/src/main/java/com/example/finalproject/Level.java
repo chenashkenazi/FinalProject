@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 public class Level implements Parcelable {
 
@@ -9,7 +10,7 @@ public class Level implements Parcelable {
     private SubLevel[] subLevels;
 
     public Level(String title) {
-        this.title = title;
+        setTitle(title);
     }
 
     public String getTitle() {

@@ -14,6 +14,8 @@ public class Simon {
         this.maxLength = maxLength;
         this.arrayOfMoves = new int[maxLength];
         r= new Random();
+
+        setArrayOfMoves();
     }
 
     /*public int getMaxLength()
@@ -62,7 +64,7 @@ public class Simon {
     }
 
     public int[] getArrayOfMoves() {
-        setArrayOfMoves();
+        //setArrayOfMoves();
         return this.arrayOfMoves;
     }
 
@@ -72,6 +74,8 @@ public class Simon {
     public void setArrayOfMoves() {
         this.arrayOfMoves = appendValueToArray();
     }
+
+    public void changeArrayOfMoves(int[] arrayOfMoves){this.arrayOfMoves = arrayOfMoves;}
 
     /*generating random number between 1 and amountOfImageView*/
     public int generateRandomNumber() {
@@ -86,7 +90,6 @@ public class Simon {
         for (int i = 0; i < this.maxLength; i++) {
                 this.arrayOfMoves[i] = generateRandomNumber();
         }
-
         return this.arrayOfMoves;
     }
     /*public int[] appendValueToArray(Simon simon) {  //

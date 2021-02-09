@@ -50,7 +50,7 @@
 
             <item>
                 <shape android:shape="rectangle">
-                    <stroke android:color="@color/mint_darker"
+                    <stroke android:color="@color/blue_jeans_light"
                         android:width="3dp"/>
                     <padding android:bottom="5dp"
                         android:right="3dp"
@@ -61,7 +61,7 @@
             <item>
                 <shape android:shape="rectangle">
                     <gradient android:startColor="?attr/colorSecondary"
-                        android:endColor="@color/mint_darker"
+                        android:endColor="@color/blue_jeans_light"
                         android:angle="45"/>
                     <corners android:radius="30dp"/>
                 </shape>
