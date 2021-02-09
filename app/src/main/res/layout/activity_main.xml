@@ -16,15 +16,14 @@
         android:scaleType="fitCenter"/>
 
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="250dp"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/simon_animation"
         android:layout_gravity="center"
-        android:text="Animation / pic"
-        android:textSize="50sp"
         android:gravity="center"
+        android:src="@drawable/simon_animation"
         />
 
     <LinearLayout

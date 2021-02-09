@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button playBtn = findViewById(R.id.play_btn);
         Button resetBtn = findViewById(R.id.reset_game_btn);
+        ImageView simonAnimation = findViewById(R.id.simon_animation);
+
+        AnimationDrawable animationDrawable = (AnimationDrawable)simonAnimation.getDrawable();
+        animationDrawable.start();
 
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
