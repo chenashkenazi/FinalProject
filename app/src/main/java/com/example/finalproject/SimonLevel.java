@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,6 +63,9 @@ public class SimonLevel extends AppCompatActivity {
     private int number_of_level = 0;
     private int incomingStars = 0; //how many stars user has already
 
+    ImageView wellDoneAnimation;
+    Animation animation;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,10 @@ public class SimonLevel extends AppCompatActivity {
         incomingStars = incomingIntent.getIntExtra("numberOfStars",0);
         amountOfImageView = incomingIntent.getIntExtra("levelNumber",0);
         int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
+
+        wellDoneAnimation = findViewById(R.id.welldone_animation);
+        animation = AnimationUtils.loadAnimation(this, R.anim.welldone_anim);
+        wellDoneAnimation.setVisibility(View.GONE);
 
         /*setting findViewById & setOnTouchListener to each ImageView*/
         switch (amountOfImageView){
@@ -285,7 +294,7 @@ public class SimonLevel extends AppCompatActivity {
                             playGame();
                         }
                     };
-                    handler.postDelayed(r, 3000);
+                    handler.postDelayed(r, 800);
                 }
             } return true;
         }
@@ -514,21 +523,31 @@ public class SimonLevel extends AppCompatActivity {
 
     /*finish Level and sending Intent To LevelFragment*/
     private void finishLevel(){
-        Intent resultIntent = new Intent();
 
-        //if need to update the subLevel in LevelsFragment
-        if (numberOfElementsInMovesArray != 0) {
-            setResult(RESULT_OK, resultIntent);
+        wellDoneAnimation.setVisibility(View.VISIBLE);
+        wellDoneAnimation.startAnimation(animation);
 
-            //load extras
-            resultIntent.putExtra("subLevelSimon",number_of_level - 1); //subLevel stats at 0
-            resultIntent.putExtra("levelSimon",amountOfImageView);
-            resultIntent.putExtra("getArrayOfMoves",array_of_moves);
-            resultIntent.putExtra("starsSimon",stars());  //change only if user got higher score
-        }
-        else
-            setResult(RESULT_CANCELED, resultIntent);
-        clear();
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent resultIntent = new Intent();
+
+                //if need to update the subLevel in LevelsFragment
+                if (numberOfElementsInMovesArray != 0) {
+                    setResult(RESULT_OK, resultIntent);
+
+                    //load extras
+                    resultIntent.putExtra("subLevelSimon",number_of_level - 1); //subLevel stats at 0
+                    resultIntent.putExtra("levelSimon",amountOfImageView);
+                    resultIntent.putExtra("getArrayOfMoves",array_of_moves);
+                    resultIntent.putExtra("starsSimon",stars());  //change only if user got higher score
+                }
+                else
+                    setResult(RESULT_CANCELED, resultIntent);
+                clear();
+                finish();
+            }
+        },1000);
+
     }
 }
