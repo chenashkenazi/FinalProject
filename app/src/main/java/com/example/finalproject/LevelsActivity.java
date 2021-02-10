@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,6 @@ public class LevelsActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.levels_view_pager);
         tabLayout = findViewById(R.id.levels_tab_layout);
-        //viewPager.setLayoutDirection();
 
         init();
     }
@@ -39,8 +39,10 @@ public class LevelsActivity extends AppCompatActivity {
             fragments.add(fragment);
         }
 
+
         LevelsPagerAdapter pagerAdapter = new LevelsPagerAdapter(getSupportFragmentManager(),fragments);
         viewPager.setAdapter(pagerAdapter);
+        //viewPager.setLayoutDirection(View.LAYOUT_DIRECTION_LOCALE);
         tabLayout.setupWithViewPager(viewPager,true);
     }
 }

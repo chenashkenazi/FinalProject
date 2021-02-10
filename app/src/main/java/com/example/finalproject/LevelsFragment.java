@@ -1,8 +1,9 @@
 package com.example.finalproject;
 
-import android.bluetooth.le.ScanSettings;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +13,16 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Objects;
-
-import static com.example.finalproject.resourses.Levels.FIRST_LEVEL;
-import static com.example.finalproject.resourses.Levels.SECOND_LEVEL;
-import static com.example.finalproject.resourses.Levels.THIRD_LEVEL;
 
 /*Here we're going to create the fragment for each level.
  each level will contains:
@@ -70,6 +69,8 @@ public class LevelsFragment extends Fragment{
     private int numOfLevelsCompleted = 0;
     private int numOfSubLevelsCompleted = 0;
 
+    private Button levelBtn;
+
     //creating a new fragment instance
     public static LevelsFragment getInstance(Level level){
         /*we'll taken the Level object that was passed through the constructor,
@@ -100,23 +101,33 @@ public class LevelsFragment extends Fragment{
         }
 
         //creating new subLevels only at the beginning
-        if (numOfSubLevelsCompleted == 0){
-            for (int i=0 ; i<16 ; i++){
-                subLevels[i] = new SubLevel(i);
-            }
-            level.setSubLevels(subLevels);
-            switch (level.getColor()){
-                case 4:
-                    level.setTitle(getResources().getString(R.string.level_four_colors));
-                    break;
-                case 6:
-                    level.setTitle(getResources().getString(R.string.level_six_colors));
-                    break;
-                case 8:
-                    level.setTitle(getResources().getString(R.string.level_eight_colors));
-                    break;
+        switch (numOfSubLevelsCompleted){
+            case 0:
+                for (int i=0 ; i<16 ; i++){
+                    subLevels[i] = new SubLevel(i);
+                }
+                level.setSubLevels(subLevels);
+                switch (level.getColor()){
+                    case 4:
+                        level.setTitle(getResources().getString(R.string.level_four_colors));
+                        subLevels[0].setStatus(Status.NEXT);
+                        break;
+                    case 6:
+                        level.setTitle(getResources().getString(R.string.level_six_colors));
+                        break;
+                    case 8:
+                        level.setTitle(getResources().getString(R.string.level_eight_colors));
+                        break;
+                }
+                break;
+            case 1:
+                if (level.getColor() == 6)
+                    subLevels[0].setStatus(Status.NEXT);
+            case 2:
+                if (level.getColor() == 8)
+                    subLevels[0].setStatus(Status.NEXT);
+                break;
 
-            }
         }
     }
 
@@ -139,6 +150,7 @@ public class LevelsFragment extends Fragment{
         init();
     }
 
+
     private void init() {
         //set the different properties to the widgets
         if(level != null){
@@ -148,15 +160,19 @@ public class LevelsFragment extends Fragment{
 
             gridView.setAdapter(customAdapter); //setting each cell in grid
 
+            //setGridViewHeight(gridView);
+
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //לחיצה ארוכה...
+                    //לחיצה על התא עצמו...
                     //Toast.makeText(getActivity(), "!!!!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
+
+
 
     private class CustomAdapter extends BaseAdapter {
         @Override
@@ -179,7 +195,7 @@ public class LevelsFragment extends Fragment{
             View grid = getLayoutInflater().inflate(R.layout.levels_cell,null);
             String level_number = String.valueOf(i+1);
 
-            Button levelBtn = (Button)grid.findViewById(R.id.level_btn);
+            levelBtn = (Button)grid.findViewById(R.id.level_btn);
             ImageView star1Iv = (ImageView)grid.findViewById(R.id.first_star);
             ImageView star2Iv = (ImageView)grid.findViewById(R.id.second_star);
             ImageView star3Iv = (ImageView)grid.findViewById(R.id.third_star);
@@ -210,30 +226,10 @@ public class LevelsFragment extends Fragment{
                     star3Iv.setActivated(true);
             }
 
-            //Toast.makeText(getActivity(), numOfLevelsCompleted+" completed", Toast.LENGTH_SHORT).show();
+            //setting buttons
+            //setButtonsInLevel(levelBtn,i);
+            setButtonStatus(i,levelBtn);
 
-            //setting the button-cell's drawable and un-clickable (from selector)
-            switch (numOfLevelsCompleted){
-                case 0:
-                    //only "4 COLORS" level is open
-                    if (level.getColor() == 4)
-                        setButtonsInLevel(levelBtn,i,false);
-                    else
-                        levelBtn.setEnabled(false); //not clickable
-                    break;
-                case 1:
-                    //"4 COLORS" level is all blue, "6 COLORS" level is open
-                    if (level.getColor() == 4)
-                        setButtonsInLevel(levelBtn,i,true);
-                    else if (level.getColor() == 6)
-                        setButtonsInLevel(levelBtn,i,false);
-                    else if (level.getColor() == 8)
-                        levelBtn.setEnabled(false); //not clickable
-                    break;
-                case 2:
-                    setButtonsInLevel(levelBtn,i,true);
-                    break;
-            }
 
             levelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -243,40 +239,113 @@ public class LevelsFragment extends Fragment{
                     intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
                     intent.putExtra("numberOfStars",subLevels[i].getStars());
                     intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
+                    intent.putExtra("highScore",subLevels[i].getHighScore());
                     startActivityForResult(intent,1);
                 }
             });
             return grid;
         }
 
-        private void setButtonsInLevel(Button levelBtn, int i, boolean completed){
-            if (!completed) {
-                if (i != 0)
+
+    }
+
+    /*setting the button-cell's drawable and un-clickable (from selector)*/
+    private void setButtonsInLevel(Button levelBtn, int i){
+
+        if (numOfLevelsCompleted == 1)
+            Toast.makeText(getActivity(), numOfLevelsCompleted+"!!!", Toast.LENGTH_SHORT).show();
+
+        switch (numOfLevelsCompleted){
+            case 0:
+                //only "4 COLORS" level is open
+                if (level.getColor() == 4)
+                    setButtonSelector(levelBtn,i,false);
+                else
                     levelBtn.setEnabled(false); //not clickable
-                if (i == 0 && !subLevels[i].isComplete()) {
-                    //אם נמצאים בשלב הראשון והוא לא הושלם - נהפוך אותו לירוק
-                    levelBtn.setEnabled(true); //clickable
-                    levelBtn.setActivated(true); //next
-                } else if (i > 0 && i < 15 && subLevels[i - 1].isComplete() && !subLevels[i + 1].isComplete()) {
-                    //אם נמצאים בין השלבים האחרון והראשון כאשר מה שלפניהם הושלם ואחריהם לא
-                    levelBtn.setEnabled(true); //clickable
-                    levelBtn.setActivated(true); //next
-                } else if (i == 15 && subLevels[14].isComplete() && !subLevels[15].isComplete()) {
-                    //אם נמצאים במצב האחרון (הוא הבא בתור)
-                    levelBtn.setEnabled(true); //clickable
-                    levelBtn.setActivated(true);
+                break;
+            case 1:
+                //"4 COLORS" level is all blue, "6 COLORS" level is open
+                if (level.getColor() == 4)
+                    setButtonSelector(levelBtn,i,true);
+                else if (level.getColor() == 6) {
+                    Toast.makeText(getActivity(), "!!!", Toast.LENGTH_SHORT).show();
+                    setButtonSelector(levelBtn, i, false);
                 }
-                if (subLevels[i].isComplete()) {
-                    levelBtn.setActivated(false); //not next
-                    levelBtn.setSelected(true); //completed
-                }
-            }else{
+                else if (level.getColor() == 8)
+                    levelBtn.setEnabled(false); //not clickable
+                break;
+            case 2:
+                setButtonSelector(levelBtn,i,true);
+                break;
+        }
+
+
+    }
+
+    /*select drawable according to level*/
+    private void setButtonSelector(Button levelBtn, int i, boolean completed){
+        if (!completed) {
+            if (i != 0)
+                levelBtn.setEnabled(false); //not clickable
+            if (i == 0 && !subLevels[i].isComplete()) {
+                //אם נמצאים בשלב הראשון והוא לא הושלם - נהפוך אותו לירוק
+                levelBtn.setEnabled(true); //clickable
+                levelBtn.setActivated(true); //next
+            } else if (i > 0 && i < 15 && subLevels[i - 1].isComplete() && !subLevels[i + 1].isComplete()) {
+                //אם נמצאים בין השלבים האחרון והראשון כאשר מה שלפניהם הושלם ואחריהם לא
+                levelBtn.setEnabled(true); //clickable
+                levelBtn.setActivated(true); //next
+            } else if (i == 15 && subLevels[14].isComplete() && !subLevels[15].isComplete()) {
+                //אם נמצאים במצב האחרון (הוא הבא בתור)
+                levelBtn.setEnabled(true); //clickable
+                levelBtn.setActivated(true);
+            }
+            if (subLevels[i].isComplete()) {
                 levelBtn.setActivated(false); //not next
                 levelBtn.setSelected(true); //completed
-                levelBtn.setEnabled(true);
             }
+        }else{
+            levelBtn.setActivated(false); //not next
+            levelBtn.setSelected(true); //completed
+            levelBtn.setEnabled(true);
         }
     }
+
+
+
+    /*set button status*/
+    private void setButtonStatus(int i, Button btn){
+        switch (subLevels[i].getStatus()){
+            case LOCK:
+                setLockedButton(btn);
+                break;
+            case NEXT:
+                setNextButton(btn);
+                break;
+            case COMPLETE:
+                setCompletedButton(btn);
+                break;
+        }
+    }
+
+    /*set next button*/
+    private void setNextButton(Button btn){
+        btn.setEnabled(true); //clickable
+        btn.setActivated(true); //next
+    }
+
+    /*set completed button*/
+    private void setCompletedButton(Button btn){
+        btn.setActivated(false); //not next
+        btn.setSelected(true); //completed
+    }
+
+    /*set locked button*/
+    private void setLockedButton(Button btn){
+        btn.setEnabled(false);
+    }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -289,18 +358,39 @@ public class LevelsFragment extends Fragment{
                 int receiveSubLevel = data.getIntExtra("subLevelSimon",0);
                 int receiveLevel = data.getIntExtra("levelSimon",0);
                 int[] receiveArrayOfMoves = data.getIntArrayExtra("getArrayOfMoves");
+                int receiveHighScore = data.getIntExtra("highScoreSimon",0);
 
                 if (level.getColor() == receiveLevel){
-                    numOfSubLevelsCompleted++;
-                    subLevels[receiveSubLevel].setComplete(true);
-                    subLevels[receiveSubLevel].setStars(receiveStars);
-                    subLevels[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);
-                    if (receiveSubLevel == 15) {
-                        numOfLevelsCompleted++;
-                        //Toast.makeText(getActivity(), numOfLevelsCompleted+"", Toast.LENGTH_SHORT).show();
-                    }
-                }
 
+                    if (!level.getSubLevels()[receiveSubLevel].isComplete())
+                        numOfSubLevelsCompleted++;
+
+                    /*subLevels[receiveSubLevel].setComplete(true);
+                    subLevels[receiveSubLevel].setStars(receiveStars);
+                    subLevels[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);*/
+
+                    level.getSubLevels()[receiveSubLevel].setComplete(true);
+                    level.getSubLevels()[receiveSubLevel].setStars(receiveStars);
+                    level.getSubLevels()[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);
+
+                    if (subLevels[receiveSubLevel].getStatus() == Status.NEXT) {
+                        level.getSubLevels()[receiveSubLevel].setStatus(Status.COMPLETE);
+                        if (receiveSubLevel < 15)
+                            level.getSubLevels()[receiveSubLevel + 1].setStatus(Status.NEXT);
+                        else{ // =15
+                            numOfLevelsCompleted++;
+                            level.getSubLevels()[receiveSubLevel].setStatus(Status.COMPLETE);
+                            Fragment fragment = null;
+                            fragment = Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.levels_fragment);
+                            final FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.detach(fragment);
+                            fragmentTransaction.attach(fragment);
+                            fragmentTransaction.commit();
+
+                        }
+                    }
+
+                }
                 init();
             }
         }
