@@ -241,7 +241,7 @@ public class LevelsFragment extends Fragment{
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), com.example.finalproject.SimonLevel.class);
-                    intent.putExtra("levelNumber",level.getSubLevels()[i].getLevelNumber());
+                    intent.putExtra("levelNumber",level.getColor());
                     intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
                     intent.putExtra("numberOfStars",level.getSubLevels()[i].getStars());
                     intent.putExtra("putArrayOfMoves",level.getSubLevels()[i].getArrayOfMoves());
@@ -251,10 +251,7 @@ public class LevelsFragment extends Fragment{
             });
             return grid;
         }
-
-
     }
-
 
     /*set button status*/
     private void setButtonStatus(int i, Button btn){

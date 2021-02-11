@@ -12,7 +12,6 @@ public class SubLevel{
     private boolean isComplete; //status
     private int highScore;
     private Status status;
-    private int levelNumber;
 
     private int[] arrayOfMoves;
 
@@ -54,14 +53,6 @@ public class SubLevel{
 
     public void setArrayOfMoves(int[] arrayOfMoves) {
         this.arrayOfMoves = arrayOfMoves;
-    }
-
-    public int getLevelNumber() {
-        return levelNumber;
-    }
-
-    public void setLevelNumber(int levelNumber) {
-        this.levelNumber = levelNumber;
     }
 
     public int getHighScore() {

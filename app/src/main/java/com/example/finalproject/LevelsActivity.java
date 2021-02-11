@@ -1,7 +1,9 @@
 package com.example.finalproject;
 
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -17,21 +19,29 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LevelsActivity extends AppCompatActivity {
+
+    final String TAG = "ActivityLifeCycle";
 
     public static final int SUB_LEVEL_SIZE = 16; //the amount of subLevels in one Level
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
+    ArrayList<Fragment> fragments;
     Level[] levels;
 
-    ArrayList<Fragment> fragments;
+    SharedPreferences sharedPreferences;
 
-    //SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
     private final String[] titles = new String[]{
             String.valueOf(R.string.level_four_colors),
@@ -43,7 +53,9 @@ public class LevelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.levels_activity);
 
+        Log.i(TAG,"on create");
         loadData();
+
 
         viewPager = findViewById(R.id.levels_view_pager);
         tabLayout = findViewById(R.id.levels_tab_layout);
@@ -53,15 +65,28 @@ public class LevelsActivity extends AppCompatActivity {
 
     private void init() {
 
-        //fragments = new ArrayList<>();
-
         /*if(levels[0].getSubLevels()[0] == null) {
             levels = Levels.getLevels();
         }*/
 
+        //levels = Levels.getLevels(); //לשים בהערה כשהגול פעיל
+        fragments = new ArrayList<>(); //לשים בהערה כשהג'סון פעיל
 
-        levels = Levels.getLevels();
+        for (int i = 0; i < levels.length; i++) {
+            SubLevel[] subLevel = new SubLevel[SUB_LEVEL_SIZE];
+            for (int j=0 ; j<SUB_LEVEL_SIZE ; j++){
+                subLevel[j] = new SubLevel(j);
+            }
+            levels[i].setSubLevels(subLevel);
+            levels[i].setTitle(titles[i]);
 
+            Level level = levels[i];
+            LevelsFragment fragment = LevelsFragment.getInstance(level);
+            fragments.add(fragment);
+        }
+
+
+        /*Level[] levels = Levels.getLevels();
         for (int i = 0; i < levels.length; i++) {
             SubLevel[] subLevel = new SubLevel[SUB_LEVEL_SIZE];
             for (int j=0 ; j<SUB_LEVEL_SIZE ; j++){
@@ -74,7 +99,7 @@ public class LevelsActivity extends AppCompatActivity {
             Level level = levels[i];
             LevelsFragment fragment = LevelsFragment.getInstance(level);
             fragments.add(fragment);
-        }
+        }*/
 
         /*for (int i = 0; i < levels.length; i++) {
             Level level = levels[i];
@@ -100,34 +125,127 @@ public class LevelsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i(TAG,"on destroy");
         saveData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG,"on pause");
+        saveData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG,"on start");
+        loadData();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG,"on stop");
+        saveData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG,"on resume");
+        loadData();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG,"on restart");
+        loadData();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Log.i(TAG,"on back press");
         saveData();
     }
 
     private void saveData(){
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        Log.i(TAG,"on save data");
+
+        //GOOL(1) - SharedPreference
+        /*SharedPreferences.Editor editor = sharedPreferences.edit();
+        String arrayOfMoves = "";
+        for(int i=0 ; i<levels.length; i++){
+            editor.putInt("level's color number", levels[i].getColor());
+            editor.putBoolean("level is open", levels[i].isOpen());
+            editor.putString("level's title",levels[i].getTitle());
+            for (int j=0 ; j<SUB_LEVEL_SIZE; j++){
+                editor.putInt("subLevel's number", levels[i].getSubLevels()[j].getSubLevelNumber());
+                editor.putInt("subLevel's stars",levels[i].getSubLevels()[j].getStars());
+                editor.putBoolean("subLevel is complete",levels[i].getSubLevels()[j].isComplete());
+                editor.putInt("subLevel's highScore",levels[i].getSubLevels()[j].getHighScore());
+                editor.putString("subLevel's status",levels[i].getSubLevels()[j].getStatus().toString());
+                for (int k=0 ; k<levels[i].getSubLevels()[j].getArrayOfMoves().length ; k++){
+                    arrayOfMoves.concat(String.valueOf(levels[i].getSubLevels()[j].getArrayOfMoves()[k])).concat("$");
+                }
+                editor.putString("subLevel's array of moves",arrayOfMoves);
+            }
+        }
+        editor.commit();*/
+
+        //Gson
+        sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(fragments);
-        editor.putString("levels",json);
-        editor.commit();
+        editor.putString("fragment",json);
+        editor.apply();
     }
 
     private void loadData(){
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        Log.i(TAG,"on load data");
+
+        //GOOL(1) - SharedPreference
+        /*sharedPreferences = getSharedPreferences("fragments",MODE_PRIVATE);
+        if (sharedPreferences.contains("subLevel's array of moves")){
+            //בריצה הראשונה לא יהיה לו שום מערך של מהלכים שמור (כי המהלך נשמר ב-SimonLevel)
+            String arrayOfMoves = "";
+            for(int i=0 ; i<levels.length; i++){
+                levels[i].setColor(sharedPreferences.getInt("level's color number",0));
+                levels[i].setOpen(sharedPreferences.getBoolean("level is open",false));
+                levels[i].setTitle(sharedPreferences.getString("level's title",""));
+                for (int j=0 ; j<SUB_LEVEL_SIZE; j++){
+                    levels[i].getSubLevels()[j].setSubLevelNumber(sharedPreferences.getInt("subLevel's number",j));
+                    levels[i].getSubLevels()[j].setStars(sharedPreferences.getInt("subLevel's stars",0));
+                    levels[i].getSubLevels()[j].setComplete(sharedPreferences.getBoolean("subLevel is complete",false));
+                    levels[i].getSubLevels()[j].setHighScore(sharedPreferences.getInt("subLevel's highScore",0));
+                    arrayOfMoves = sharedPreferences.getString("subLevel's array of moves","");
+                    if (!arrayOfMoves.isEmpty()) {
+                        String[] strArr = arrayOfMoves.split("$");
+                        int[] intArr = new int[strArr.length];
+                        for (int k = 0; k < strArr.length; k++) {
+                            intArr[k] = Integer.parseInt(strArr[k]);
+                        }
+                        levels[i].getSubLevels()[j].setArrayOfMoves(intArr);
+                    }else
+                        levels[i].getSubLevels()[j].setArrayOfMoves(null);
+
+                }
+            }
+        }else
+            levels = Levels.getLevels();*/
+
+        //Gson
+        sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("levels",null);
+        String json = sharedPreferences.getString("fragment",null);
         Type type = new TypeToken<ArrayList<Fragment>>(){}.getType();
         fragments = gson.fromJson(json, type);
 
-        if (fragments == null){
+        if (fragments == null)
             fragments = new ArrayList<>();
-        }
     }
 
     public void MoveNext(View view){
