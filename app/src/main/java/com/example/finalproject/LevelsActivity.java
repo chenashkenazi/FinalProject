@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.finalproject.resourses.Levels;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,10 @@ public class LevelsActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    Level[] levels;
+
+    SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
     private final String[] titles = new String[]{
             String.valueOf(R.string.level_four_colors),
@@ -41,7 +47,9 @@ public class LevelsActivity extends AppCompatActivity {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
 
-        Level[] levels = Levels.getLevels();
+        if(levels[0].getSubLevels()[0] == null) {
+            levels = Levels.getLevels();
+        }
 
         for (int i = 0; i < levels.length; i++) {
             SubLevel[] subLevel = new SubLevel[SUB_LEVEL_SIZE];
@@ -91,4 +99,24 @@ public class LevelsActivity extends AppCompatActivity {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(levels);
+        prefsEditor.putString("myLevel", json);
+        prefsEditor.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("myLevel", "");
+        levels = gson.fromJson(json, Level[].class);
+
+    }
 }

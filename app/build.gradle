@@ -43,6 +43,8 @@ dependencies {
 
     //support design
     implementation "com.android.support:design:$supportVersion"
+    //shared preferences implementation
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     /*//glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
