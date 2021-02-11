@@ -324,13 +324,6 @@
             android:text="Tap to play"
             android:fontFamily="@font/nerko_one"/>
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/welldone"
-        android:id="@+id/welldone_animation"/>
-
         <TextView
 
             android:layout_gravity="center_horizontal"
@@ -352,4 +345,12 @@
             android:background="@drawable/ic_play_foreground"
             />
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/welldone"
+        android:id="@+id/welldone_animation"/>
+
 </RelativeLayout>

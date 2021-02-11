@@ -101,19 +101,16 @@ public class SimonLevel extends AppCompatActivity {
         play = findViewById(R.id.backToPlay);
         pause = findViewById(R.id.pauseBtn);
         pauseLayout = findViewById(R.id.pauseLayout);
-        play.setOnClickListener(new View.OnClickListener() {
+        pauseLayout.setVisibility(View.GONE);
+        pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (numberOfClicksEachStage == 0) {
-                    pauseLayout.setVisibility(View.VISIBLE);
-                } else {
-                    numberOfElementsInMovesArray--;
-                    pauseLayout.setVisibility(View.VISIBLE);
-                }
+                numberOfElementsInMovesArray--;
+                pauseLayout.setVisibility(View.VISIBLE);
 
             }
         });
-        pause.setOnClickListener(new View.OnClickListener() {
+        play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pauseLayout.setVisibility(View.GONE);
@@ -122,13 +119,13 @@ public class SimonLevel extends AppCompatActivity {
                         playGame();
                     }
                 };
-                handler.postDelayed(r, 3000);
+                handler.postDelayed(r, 1000);
             }
         });
 
-        score = findViewById(R.id.score);
+        score = findViewById(R.id.currentScore);
         bestScore = findViewById(R.id.bestScoreUpdate);
-        bestScore.setText(incomingScore);
+        bestScore.setText(String.valueOf(incomingScore));
 
         /*setting findViewById & setOnTouchListener to each ImageView*/
         switch (amountOfImageView) {
@@ -329,11 +326,11 @@ public class SimonLevel extends AppCompatActivity {
                     numberOfClicksEachStage = 0;
 
                     currentScore+=numberOfElementsInMovesArray;
-                    score.setText(currentScore);
+                    score.setText(String.valueOf(currentScore));
 
                     if (currentScore > incomingScore) {
                         incomingScore = currentScore;
-                        bestScore.setText(incomingScore);
+                        bestScore.setText(String.valueOf(incomingScore));
                     }
 
                     final Runnable r = new Runnable() {
@@ -341,7 +338,7 @@ public class SimonLevel extends AppCompatActivity {
                             playGame();
                         }
                     };
-                    handler.postDelayed(r, 3000);
+                    handler.postDelayed(r, 1000);
                 }
             }
             return true;
@@ -596,6 +593,6 @@ public class SimonLevel extends AppCompatActivity {
                 clear();
                 finish();
             }
-        }, 1000);
+        }, 2000);
     }
 }
