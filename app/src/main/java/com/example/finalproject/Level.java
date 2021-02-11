@@ -7,12 +7,18 @@ import android.os.Parcelable;
 
 public class Level implements Parcelable {
 
+    private int color;
+    private boolean isOpen;
     private String title;
     private SubLevel[] subLevels;
-    private int color;
 
     public Level(int colors) {
+        this(colors,false);
+    }
+
+    public Level(int colors, boolean isOpen){
         setColor(colors);
+        setOpen(isOpen);
     }
 
     public int getColor() {
@@ -37,6 +43,14 @@ public class Level implements Parcelable {
 
     public void setSubLevels(SubLevel[] subLevels) {
         this.subLevels = subLevels;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 
     protected Level(Parcel in) {

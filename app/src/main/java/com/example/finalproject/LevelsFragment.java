@@ -2,13 +2,16 @@ package com.example.finalproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -20,8 +23,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.finalproject.resourses.Levels;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 /*Here we're going to create the fragment for each level.
@@ -62,14 +69,11 @@ public class LevelsFragment extends Fragment{
     private GridView gridView;
     private Level level;
 
-    private final SubLevel[] subLevels = new SubLevel[16];
+    //private final SubLevel[] subLevels = new SubLevel[16];
 
-    //private int number_of_subLevels_completed = 0; // if %16==0 then switch to next level
+    /*private int numOfLevelsCompleted = 0;
+    private int numOfSubLevelsCompleted = 0;*/
 
-    private int numOfLevelsCompleted = 0;
-    private int numOfSubLevelsCompleted = 0;
-
-    private Button levelBtn;
 
     //creating a new fragment instance
     public static LevelsFragment getInstance(Level level){
@@ -100,8 +104,11 @@ public class LevelsFragment extends Fragment{
             level = getArguments().getParcelable("level");
         }
 
+        if (level.isOpen())
+            level.getSubLevels()[0].setStatus(Status.NEXT);
+
         //creating new subLevels only at the beginning
-        switch (numOfSubLevelsCompleted){
+        /*switch (numOfSubLevelsCompleted){
             case 0:
                 for (int i=0 ; i<16 ; i++){
                     subLevels[i] = new SubLevel(i);
@@ -128,7 +135,7 @@ public class LevelsFragment extends Fragment{
                     subLevels[0].setStatus(Status.NEXT);
                 break;
 
-        }
+        }*/
     }
 
     @Nullable
@@ -177,7 +184,7 @@ public class LevelsFragment extends Fragment{
     private class CustomAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return subLevels.length;
+            return level.getSubLevels().length;
         }
 
         @Override
@@ -195,7 +202,7 @@ public class LevelsFragment extends Fragment{
             View grid = getLayoutInflater().inflate(R.layout.levels_cell,null);
             String level_number = String.valueOf(i+1);
 
-            levelBtn = (Button)grid.findViewById(R.id.level_btn);
+            Button levelBtn = (Button) grid.findViewById(R.id.level_btn);
             ImageView star1Iv = (ImageView)grid.findViewById(R.id.first_star);
             ImageView star2Iv = (ImageView)grid.findViewById(R.id.second_star);
             ImageView star3Iv = (ImageView)grid.findViewById(R.id.third_star);
@@ -203,7 +210,7 @@ public class LevelsFragment extends Fragment{
             levelBtn.setText(level_number);
 
             //setting subLevel's levelNumber
-            subLevels[i].setLevelNumber(level.getColor());
+            //subLevels[i].setLevelNumber(level.getColor());
 
             //set the grid's display
             DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -226,20 +233,19 @@ public class LevelsFragment extends Fragment{
                     star3Iv.setActivated(true);
             }
 
-            //setting buttons
+            //setting buttons according to their status
             //setButtonsInLevel(levelBtn,i);
-            setButtonStatus(i,levelBtn);
-
+            setButtonStatus(i, levelBtn);
 
             levelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), com.example.finalproject.SimonLevel.class);
-                    intent.putExtra("levelNumber",subLevels[i].getLevelNumber());
-                    intent.putExtra("subLevelNumber",subLevels[i].getSubLevelNumber());
-                    intent.putExtra("numberOfStars",subLevels[i].getStars());
-                    intent.putExtra("putArrayOfMoves",subLevels[i].getArrayOfMoves());
-                    intent.putExtra("highScore",subLevels[i].getHighScore());
+                    intent.putExtra("levelNumber",level.getSubLevels()[i].getLevelNumber());
+                    intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
+                    intent.putExtra("numberOfStars",level.getSubLevels()[i].getStars());
+                    intent.putExtra("putArrayOfMoves",level.getSubLevels()[i].getArrayOfMoves());
+                    intent.putExtra("highScore",level.getSubLevels()[i].getHighScore());
                     startActivityForResult(intent,1);
                 }
             });
@@ -249,8 +255,24 @@ public class LevelsFragment extends Fragment{
 
     }
 
+
+    /*set button status*/
+    private void setButtonStatus(int i, Button btn){
+        switch (level.getSubLevels()[i].getStatus()){
+            case LOCK:
+                setLockedButton(btn);
+                break;
+            case NEXT:
+                setNextButton(btn);
+                break;
+            case COMPLETE:
+                setCompletedButton(btn);
+                break;
+        }
+    }
+
     /*setting the button-cell's drawable and un-clickable (from selector)*/
-    private void setButtonsInLevel(Button levelBtn, int i){
+    /*private void setButtonsInLevel(Button levelBtn, int i){
 
         if (numOfLevelsCompleted == 1)
             Toast.makeText(getActivity(), numOfLevelsCompleted+"!!!", Toast.LENGTH_SHORT).show();
@@ -280,10 +302,10 @@ public class LevelsFragment extends Fragment{
         }
 
 
-    }
+    }*/
 
     /*select drawable according to level*/
-    private void setButtonSelector(Button levelBtn, int i, boolean completed){
+    /*private void setButtonSelector(Button levelBtn, int i, boolean completed){
         if (!completed) {
             if (i != 0)
                 levelBtn.setEnabled(false); //not clickable
@@ -309,24 +331,8 @@ public class LevelsFragment extends Fragment{
             levelBtn.setSelected(true); //completed
             levelBtn.setEnabled(true);
         }
-    }
+    }*/
 
-
-
-    /*set button status*/
-    private void setButtonStatus(int i, Button btn){
-        switch (subLevels[i].getStatus()){
-            case LOCK:
-                setLockedButton(btn);
-                break;
-            case NEXT:
-                setNextButton(btn);
-                break;
-            case COMPLETE:
-                setCompletedButton(btn);
-                break;
-        }
-    }
 
     /*set next button*/
     private void setNextButton(Button btn){
@@ -345,8 +351,6 @@ public class LevelsFragment extends Fragment{
         btn.setEnabled(false);
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -360,10 +364,10 @@ public class LevelsFragment extends Fragment{
                 int[] receiveArrayOfMoves = data.getIntArrayExtra("getArrayOfMoves");
                 int receiveHighScore = data.getIntExtra("highScoreSimon",0);
 
-                if (level.getColor() == receiveLevel){
+                if (level.getColor() == receiveLevel) {
 
-                    if (!level.getSubLevels()[receiveSubLevel].isComplete())
-                        numOfSubLevelsCompleted++;
+                    /*if (!level.getSubLevels()[receiveSubLevel].isComplete())
+                        numOfSubLevelsCompleted++;*/
 
                     /*subLevels[receiveSubLevel].setComplete(true);
                     subLevels[receiveSubLevel].setStars(receiveStars);
@@ -372,21 +376,16 @@ public class LevelsFragment extends Fragment{
                     level.getSubLevels()[receiveSubLevel].setComplete(true);
                     level.getSubLevels()[receiveSubLevel].setStars(receiveStars);
                     level.getSubLevels()[receiveSubLevel].setArrayOfMoves(receiveArrayOfMoves);
+                    level.getSubLevels()[receiveSubLevel].setHighScore(receiveHighScore);
 
-                    if (subLevels[receiveSubLevel].getStatus() == Status.NEXT) {
+                    if (level.getSubLevels()[receiveSubLevel].getStatus() == Status.NEXT) {
                         level.getSubLevels()[receiveSubLevel].setStatus(Status.COMPLETE);
                         if (receiveSubLevel < 15)
                             level.getSubLevels()[receiveSubLevel + 1].setStatus(Status.NEXT);
-                        else{ // =15
-                            numOfLevelsCompleted++;
+                        else { // =15
+                            //numOfLevelsCompleted++;
                             level.getSubLevels()[receiveSubLevel].setStatus(Status.COMPLETE);
-                            Fragment fragment = null;
-                            fragment = Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.levels_fragment);
-                            final FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.detach(fragment);
-                            fragmentTransaction.attach(fragment);
-                            fragmentTransaction.commit();
-
+                            ((LevelsActivity) Objects.requireNonNull(getActivity())).MoveNext(getView());
                         }
                     }
 
@@ -395,4 +394,5 @@ public class LevelsFragment extends Fragment{
             }
         }
     }
+
 }

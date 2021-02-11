@@ -10,13 +10,14 @@ public class SubLevel{
     private int subLevelNumber; //the index in Level[]. exp: the first level in level1
     private int stars; //0=not passed the level, 1-3
     private boolean isComplete; //status
-    private int[] arrayOfMoves;
-    private int levelNumber;
     private int highScore;
     private Status status;
+    private int levelNumber;
+
+    private int[] arrayOfMoves;
 
     public SubLevel(int subLevelNumber) {
-        this.subLevelNumber = subLevelNumber;
+        setSubLevelNumber(subLevelNumber);
         setStars(0);
         setComplete(false);
         setHighScore(0);

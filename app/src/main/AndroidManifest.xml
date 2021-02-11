@@ -19,11 +19,11 @@
 
         <activity android:name=".LevelsActivity" />
 
-        <activity android:name=".SimonLevel1" />
+        <!--<activity android:name=".SimonLevel1" />
 
         <activity android:name=".SimonLevel2" />
 
-        <activity android:name=".SimonLevel3" />
+        <activity android:name=".SimonLevel3" />-->
 
         <activity android:name=".SimonLevel" />
 
