@@ -91,6 +91,7 @@ public class SimonLevel extends AppCompatActivity {
         number_of_level = incomingIntent.getIntExtra("subLevelNumber", 0) + 1; //number_of_level starts at 0
         incomingStars = incomingIntent.getIntExtra("numberOfStars", 0);
         amountOfImageView = incomingIntent.getIntExtra("levelNumber", 0);
+        incomingScore= incomingIntent.getIntExtra("highScoreSimon", 0);
         int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
 
         wellDoneAnimation = findViewById(R.id.welldone_animation);
@@ -327,8 +328,12 @@ public class SimonLevel extends AppCompatActivity {
 
                     numberOfClicksEachStage = 0;
 
-                    if (numberOfElementsInMovesArray > highScore) {
-                        highScore = numberOfElementsInMovesArray;
+                    currentScore+=numberOfElementsInMovesArray;
+                    score.setText(currentScore);
+
+                    if (currentScore > incomingScore) {
+                        incomingScore = currentScore;
+                        bestScore.setText(incomingScore);
                     }
 
                     final Runnable r = new Runnable() {
