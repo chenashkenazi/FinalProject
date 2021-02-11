@@ -4,30 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_weight="1"
-            android:src="@drawable/simon_logo"
-
-            android:scaleType="fitCenter"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_pause_foreground"
-            android:layout_marginTop="150dp"
-            android:id="@+id/pauseBtn"
-            />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -322,6 +298,13 @@
             android:textColor="#8B838F"
             android:text="Tap to play"
             android:fontFamily="@font/nerko_one"/>
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/welldone"
+        android:id="@+id/welldone_animation"/>
 
         <TextView
 

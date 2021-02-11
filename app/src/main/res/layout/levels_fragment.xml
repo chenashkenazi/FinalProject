@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/levels_fragment">
+    android:id="@+id/levels_fragment"
+    android:layoutDirection="locale">
 
     <ImageView
         android:layout_width="match_parent"
@@ -51,7 +52,12 @@
             android:layout_below="@+id/levels_frame_layout"
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="20dp"
-            android:numColumns="4">
+            android:numColumns="4"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true"
+            android:stretchMode="columnWidth">
 
         </GridView>
 

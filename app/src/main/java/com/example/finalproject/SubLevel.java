@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+enum Status{LOCK, NEXT, COMPLETE}
+
 /*Here we're going to define the Sub-Level object*/
 
 public class SubLevel{
@@ -10,11 +12,15 @@ public class SubLevel{
     private boolean isComplete; //status
     private int[] arrayOfMoves;
     private int levelNumber;
+    private int highScore;
+    private Status status;
 
     public SubLevel(int subLevelNumber) {
         this.subLevelNumber = subLevelNumber;
         setStars(0);
         setComplete(false);
+        setHighScore(0);
+        setStatus(Status.LOCK);
     }
 
     public int getSubLevelNumber() {
@@ -55,5 +61,21 @@ public class SubLevel{
 
     public void setLevelNumber(int levelNumber) {
         this.levelNumber = levelNumber;
+    }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
