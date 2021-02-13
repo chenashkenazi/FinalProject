@@ -1,34 +1,22 @@
 package com.example.finalproject;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.finalproject.resourses.Levels;
-
-import java.util.ArrayList;
 import java.util.Objects;
 
 /*Here we're going to create the fragment for each level.
@@ -68,6 +56,7 @@ public class LevelsFragment extends Fragment{
     private TextView levelNumTv; //level's number (level1, level2, level3)
     private GridView gridView;
     private Level level;
+
 
     //private final SubLevel[] subLevels = new SubLevel[16];
 

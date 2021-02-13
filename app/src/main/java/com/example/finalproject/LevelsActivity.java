@@ -1,32 +1,22 @@
 package com.example.finalproject;
 
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.finalproject.resourses.Levels;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class LevelsActivity extends AppCompatActivity {
 
@@ -42,6 +32,7 @@ public class LevelsActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
+    File file;
 
     private final String[] titles = new String[]{
             String.valueOf(R.string.level_four_colors),
@@ -207,38 +198,8 @@ public class LevelsActivity extends AppCompatActivity {
     private void loadData(){
         Log.i(TAG,"on load data");
 
-        //GOOL(1) - SharedPreference
-        /*sharedPreferences = getSharedPreferences("fragments",MODE_PRIVATE);
-        if (sharedPreferences.contains("subLevel's array of moves")){
-            //בריצה הראשונה לא יהיה לו שום מערך של מהלכים שמור (כי המהלך נשמר ב-SimonLevel)
-            String arrayOfMoves = "";
-            for(int i=0 ; i<levels.length; i++){
-                levels[i].setColor(sharedPreferences.getInt("level's color number",0));
-                levels[i].setOpen(sharedPreferences.getBoolean("level is open",false));
-                levels[i].setTitle(sharedPreferences.getString("level's title",""));
-                for (int j=0 ; j<SUB_LEVEL_SIZE; j++){
-                    levels[i].getSubLevels()[j].setSubLevelNumber(sharedPreferences.getInt("subLevel's number",j));
-                    levels[i].getSubLevels()[j].setStars(sharedPreferences.getInt("subLevel's stars",0));
-                    levels[i].getSubLevels()[j].setComplete(sharedPreferences.getBoolean("subLevel is complete",false));
-                    levels[i].getSubLevels()[j].setHighScore(sharedPreferences.getInt("subLevel's highScore",0));
-                    arrayOfMoves = sharedPreferences.getString("subLevel's array of moves","");
-                    if (!arrayOfMoves.isEmpty()) {
-                        String[] strArr = arrayOfMoves.split("$");
-                        int[] intArr = new int[strArr.length];
-                        for (int k = 0; k < strArr.length; k++) {
-                            intArr[k] = Integer.parseInt(strArr[k]);
-                        }
-                        levels[i].getSubLevels()[j].setArrayOfMoves(intArr);
-                    }else
-                        levels[i].getSubLevels()[j].setArrayOfMoves(null);
-
-                }
-            }
-        }else
-            levels = Levels.getLevels();*/
-
-        //Gson
         sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        ;
         Gson gson = new Gson();
         String json = sharedPreferences.getString("fragment",null);
         Type type = new TypeToken<ArrayList<Fragment>>(){}.getType();

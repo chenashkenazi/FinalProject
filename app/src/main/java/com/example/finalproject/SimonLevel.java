@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +34,8 @@ public class SimonLevel extends AppCompatActivity {
 
     private ImageButton pause;
     private ImageButton play;
+
+    private TextView description;
 
     private FrameLayout pauseLayout;
 
@@ -98,6 +99,11 @@ public class SimonLevel extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(this, R.anim.welldone_anim);
         wellDoneAnimation.setVisibility(View.GONE);
 
+        description= findViewById(R.id.Repeat);
+        if (number_of_level!= 1)
+        {
+            description.setVisibility(View.GONE);
+        }
         play = findViewById(R.id.backToPlay);
         pause = findViewById(R.id.pauseBtn);
         pauseLayout = findViewById(R.id.pauseLayout);
@@ -210,9 +216,12 @@ public class SimonLevel extends AppCompatActivity {
 
     }
 
-    ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
+    ImageView.OnTouchListener onTouch = new View.OnTouchListener()
+    {
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            description.setVisibility(View.GONE);
             if (event.getAction() == MotionEvent.ACTION_UP) {
 
                 /*which color the user touched*/

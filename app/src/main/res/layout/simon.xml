@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr">
+    android:layoutDirection="ltr"
+    android:background="@drawable/simongame_backgroud">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -13,6 +14,21 @@
             android:src="@drawable/simon_logo"
             android:layout_gravity="center"
             android:scaleType="fitCenter"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="200dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50dp"
+            android:gravity="center"
+            android:textColor="#8B838F"
+            android:text="Repeat after me"
+            android:fontFamily="@font/nerko_one"
+            android:id="@+id/Repeat"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -277,32 +293,31 @@
             android:layout_height="wrap_content"
             android:text="Score: "
             android:textSize="40dp"
-            android:textColor="#101010"
+            android:textColor="@color/blue_jeans_light"
             android:fontFamily="@font/nerko_one"
             android:id="@+id/score"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40dp"
-            android:textColor="#101010"
-            android:layout_toEndOf="@id/score"
+            android:textColor="@color/blue_jeans_light"            android:layout_toEndOf="@id/score"
             android:fontFamily="@font/nerko_one"
             android:id="@+id/currentScore"
             />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Best score:"
             android:textSize="40dp"
             android:layout_toEndOf="@id/currentScore"
-            android:textColor="#101010"
-            android:id="@+id/bestScore"
+            android:gravity="end"
+            android:textColor="@color/blue_jeans_light"            android:id="@+id/bestScore"
             android:fontFamily="@font/nerko_one"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40dp"
-            android:textColor="#101010"
+            android:textColor="@color/blue_jeans_light"
             android:fontFamily="@font/nerko_one"
             android:id="@+id/bestScoreUpdate"
             android:layout_toEndOf="@id/bestScore"
@@ -317,7 +332,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="270dp"
             android:layout_marginLeft="60dp"
             android:textSize="50dp"
             android:textColor="#8B838F"
@@ -329,17 +344,17 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="310dp"
             android:layout_marginLeft="90dp"
             android:textSize="60dp"
-            android:textColor="#AE5FE4"
+            android:textColor="#7DAF45"
             android:text="Pause"
             android:fontFamily="@font/nerko_one"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="350dp"
             android:id="@+id/backToPlay"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_play_foreground"
