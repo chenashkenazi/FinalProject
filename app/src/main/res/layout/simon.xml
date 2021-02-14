@@ -285,8 +285,9 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="500dp"
+        android:gravity="center"
          >
         <TextView
             android:layout_width="wrap_content"
@@ -304,13 +305,17 @@
             android:fontFamily="@font/nerko_one"
             android:id="@+id/currentScore"
             />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="550dp"
+        android:gravity="center">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Best score:"
             android:textSize="40dp"
-            android:layout_toEndOf="@id/currentScore"
-            android:gravity="end"
             android:textColor="@color/blue_jeans_light"            android:id="@+id/bestScore"
             android:fontFamily="@font/nerko_one"/>
         <TextView
