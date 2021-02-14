@@ -199,7 +199,7 @@ public class LevelsActivity extends AppCompatActivity {
         Log.i(TAG,"on load data");
 
         sharedPreferences = getSharedPreferences("sharedPreferences",MODE_PRIVATE);
-        ;
+
         Gson gson = new Gson();
         String json = sharedPreferences.getString("fragment",null);
         Type type = new TypeToken<ArrayList<Fragment>>(){}.getType();

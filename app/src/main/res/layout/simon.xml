@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="175dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textColor="#8B838F"
             android:text="Repeat after me"
             android:fontFamily="@font/nerko_one"
-            android:id="@+id/Repeat"/>
+            android:id="@+id/repeat"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -335,7 +335,7 @@
             android:layout_marginTop="270dp"
             android:layout_marginLeft="60dp"
             android:textSize="50dp"
-            android:textColor="#8B838F"
+            android:textColor="#7DAF45"
             android:text="Tap to play"
             android:fontFamily="@font/nerko_one"/>
 
@@ -347,7 +347,7 @@
             android:layout_marginTop="310dp"
             android:layout_marginLeft="90dp"
             android:textSize="60dp"
-            android:textColor="#7DAF45"
+            android:textColor="#8B838F"
             android:text="Pause"
             android:fontFamily="@font/nerko_one"/>
 

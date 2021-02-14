@@ -39,6 +39,9 @@ public class SimonLevel extends AppCompatActivity {
 
     private FrameLayout pauseLayout;
 
+    private LinearLayout linearLayout;
+    private FrameLayout frameLayout;
+    private RelativeLayout relativeLayout;
     //6 COLORS
     //ImageView leftTop;
     private ImageView leftCenter;
@@ -83,9 +86,9 @@ public class SimonLevel extends AppCompatActivity {
         setContentView(R.layout.simon);
 
         /*getting the layout's ID*/
-        LinearLayout linearLayout = findViewById(R.id.level1_layout);
-        FrameLayout frameLayout = findViewById(R.id.level2_layout);
-        RelativeLayout relativeLayout = findViewById(R.id.level3_layout);
+        linearLayout = findViewById(R.id.level1_layout);
+        frameLayout = findViewById(R.id.level2_layout);
+        relativeLayout = findViewById(R.id.level3_layout);
 
         /*getting intent from LevelsFragment*/
         Intent incomingIntent = getIntent();
@@ -99,7 +102,7 @@ public class SimonLevel extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(this, R.anim.welldone_anim);
         wellDoneAnimation.setVisibility(View.GONE);
 
-        description= findViewById(R.id.Repeat);
+        description= findViewById(R.id.repeat);
         if (number_of_level!= 1)
         {
             description.setVisibility(View.GONE);
@@ -581,6 +584,9 @@ public class SimonLevel extends AppCompatActivity {
         wellDoneAnimation.setVisibility(View.VISIBLE);
         wellDoneAnimation.startAnimation(animation);
 
+        linearLayout.setVisibility(View.GONE);
+        frameLayout.setVisibility(View.GONE);
+        relativeLayout.setVisibility(View.GONE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
