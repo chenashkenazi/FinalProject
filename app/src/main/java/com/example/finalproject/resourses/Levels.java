@@ -9,11 +9,11 @@ import com.example.finalproject.*;
 public class Levels {
 
     public static Level[] getLevels(){
-        FIRST_LEVEL.setOpen(true);
+        //FIRST_LEVEL.setOpen(true);
         return LEVELS;
     }
 
-    public static final Level FIRST_LEVEL = new Level(4,true);
+    public static final Level FIRST_LEVEL = new Level(4);
     public static final Level SECOND_LEVEL = new Level(6);
     public static final Level THIRD_LEVEL = new Level(8);
 

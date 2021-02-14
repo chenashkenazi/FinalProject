@@ -41,12 +41,14 @@ dependencies {
     def glideVersion = "4.8.0"
     def supportVersion = "28.0.0"
 
-    //support design
-    implementation "com.android.support:design:$supportVersion"
+
     //shared preferences implementation
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    /*//glide
+    //support design
+    implementation "com.android.support:design:$supportVersion"
+
+    //glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"*/
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 }

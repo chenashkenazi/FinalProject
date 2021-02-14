@@ -12,7 +12,6 @@ public class SubLevel{
     private boolean isComplete; //status
     private int highScore;
     private Status status;
-
     private int[] arrayOfMoves;
 
     public SubLevel(int subLevelNumber) {

@@ -33,11 +33,6 @@ public class SimonLevel extends AppCompatActivity {
     private TextView score;
     private TextView bestScore;
 
-    private ImageButton pause;
-    private ImageButton play;
-
-    private FrameLayout pauseLayout;
-
     //6 COLORS
     //ImageView leftTop;
     private ImageView leftCenter;
@@ -55,6 +50,10 @@ public class SimonLevel extends AppCompatActivity {
     private ImageView leftBottom2;
     private ImageView rightTop2;
     private ImageView rightBottom2;
+
+    private ImageButton pause;
+    private ImageButton play;
+    private FrameLayout pauseLayout;
 
     private int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
     private int numberOfClicksEachStage = 0; //index in array_of_moves
@@ -91,7 +90,7 @@ public class SimonLevel extends AppCompatActivity {
         number_of_level = incomingIntent.getIntExtra("subLevelNumber", 0) + 1; //number_of_level starts at 0
         incomingStars = incomingIntent.getIntExtra("numberOfStars", 0);
         amountOfImageView = incomingIntent.getIntExtra("levelNumber", 0);
-        incomingScore= incomingIntent.getIntExtra("highScoreSimon", 0);
+        incomingScore= incomingIntent.getIntExtra("highScore", 0);
         int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
 
         wellDoneAnimation = findViewById(R.id.welldone_animation);
@@ -577,6 +576,8 @@ public class SimonLevel extends AppCompatActivity {
             public void run() {
                 Intent resultIntent = new Intent();
 
+                resultIntent.putExtra("getArrayOfMoves", array_of_moves);
+
                 //if need to update the subLevel in LevelsFragment
                 if (numberOfElementsInMovesArray != 0) {
                     setResult(RESULT_OK, resultIntent);
@@ -584,7 +585,6 @@ public class SimonLevel extends AppCompatActivity {
                     //load extras
                     resultIntent.putExtra("subLevelSimon", number_of_level - 1); //subLevel stats at 0
                     resultIntent.putExtra("levelSimon", amountOfImageView);
-                    resultIntent.putExtra("getArrayOfMoves", array_of_moves);
                     resultIntent.putExtra("starsSimon", stars());  //change only if user got higher score
                     resultIntent.putExtra("highScoreSimon", incomingScore); //subLevel stats at 0
 
