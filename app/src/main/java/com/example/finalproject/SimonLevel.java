@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +31,13 @@ public class SimonLevel extends AppCompatActivity {
     private ImageView rightBottom;
     private TextView score;
     private TextView bestScore;
+
+    private ImageButton pause;
+    private ImageButton play;
+
+    private TextView description;
+
+    private FrameLayout pauseLayout;
 
     //6 COLORS
     //ImageView leftTop;
@@ -50,11 +56,6 @@ public class SimonLevel extends AppCompatActivity {
     private ImageView leftBottom2;
     private ImageView rightTop2;
     private ImageView rightBottom2;
-
-    private ImageButton pause;
-    private ImageButton play;
-    private FrameLayout pauseLayout;
-    private RelativeLayout backgroundPaused;
 
     private int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
     private int numberOfClicksEachStage = 0; //index in array_of_moves
@@ -91,33 +92,34 @@ public class SimonLevel extends AppCompatActivity {
         number_of_level = incomingIntent.getIntExtra("subLevelNumber", 0) + 1; //number_of_level starts at 0
         incomingStars = incomingIntent.getIntExtra("numberOfStars", 0);
         amountOfImageView = incomingIntent.getIntExtra("levelNumber", 0);
-        incomingScore= incomingIntent.getIntExtra("highScore", 0);
+        incomingScore= incomingIntent.getIntExtra("highScoreSimon", 0);
         int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
 
         wellDoneAnimation = findViewById(R.id.welldone_animation);
         animation = AnimationUtils.loadAnimation(this, R.anim.welldone_anim);
         wellDoneAnimation.setVisibility(View.GONE);
 
+        description= findViewById(R.id.repeat);
+        if (number_of_level!= 1)
+        {
+            description.setVisibility(View.GONE);
+        }
         play = findViewById(R.id.backToPlay);
         pause = findViewById(R.id.pauseBtn);
         pauseLayout = findViewById(R.id.pauseLayout);
         pauseLayout.setVisibility(View.GONE);
-        backgroundPaused = findViewById(R.id.simon_background_paused);
-        backgroundPaused.setVisibility(View.INVISIBLE);
-
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 numberOfElementsInMovesArray--;
                 pauseLayout.setVisibility(View.VISIBLE);
-                backgroundPaused.setVisibility(View.VISIBLE);
+
             }
         });
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pauseLayout.setVisibility(View.GONE);
-                backgroundPaused.setVisibility(View.INVISIBLE);
                 final Runnable r = new Runnable() {
                     public void run() {
                         playGame();
@@ -128,7 +130,6 @@ public class SimonLevel extends AppCompatActivity {
         });
 
         score = findViewById(R.id.currentScore);
-        score.setText(currentScore+"");
         bestScore = findViewById(R.id.bestScoreUpdate);
         bestScore.setText(String.valueOf(incomingScore));
 
@@ -193,7 +194,8 @@ public class SimonLevel extends AppCompatActivity {
                 break;
         }
 
-        maxLength = (number_of_level + 2) * 3 + 1;
+        //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
+        maxLength = 1; ////בדיקה!!!!!
 
         Simon simon = new Simon(maxLength, amountOfImageView);
 
@@ -214,9 +216,12 @@ public class SimonLevel extends AppCompatActivity {
 
     }
 
-    ImageView.OnTouchListener onTouch = new View.OnTouchListener() {
+    ImageView.OnTouchListener onTouch = new View.OnTouchListener()
+    {
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            description.setVisibility(View.GONE);
             if (event.getAction() == MotionEvent.ACTION_UP) {
 
                 /*which color the user touched*/
@@ -309,6 +314,7 @@ public class SimonLevel extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             numberOfElementsInMovesArray--;
                             finishLevel();
+                            finish();
                         }
 
                     });
@@ -332,8 +338,8 @@ public class SimonLevel extends AppCompatActivity {
                     score.setText(String.valueOf(currentScore));
 
                     if (currentScore > incomingScore) {
-                        //incomingScore = currentScore;
-                        bestScore.setText(String.valueOf(currentScore));
+                        incomingScore = currentScore;
+                        bestScore.setText(String.valueOf(incomingScore));
                     }
 
                     final Runnable r = new Runnable() {
@@ -555,9 +561,6 @@ public class SimonLevel extends AppCompatActivity {
     private void clear() {
         numberOfClicksEachStage = 0;
         numberOfElementsInMovesArray = 0;
-        currentScore = 0;
-        score.setText(currentScore+"");
-        bestScore.setText(String.valueOf(incomingScore));
     }
 
     /*defining how many stats user should get*/
@@ -574,16 +577,14 @@ public class SimonLevel extends AppCompatActivity {
 
     /*finish Level and sending Intent To LevelFragment*/
     private void finishLevel() {
-
-        wellDoneAnimation.setVisibility(View.VISIBLE);
-        wellDoneAnimation.startAnimation(animation);
-
+        if (numberOfElementsInMovesArray == maxLength) {
+            wellDoneAnimation.setVisibility(View.VISIBLE);
+            wellDoneAnimation.startAnimation(animation);
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent resultIntent = new Intent();
-
-                resultIntent.putExtra("getArrayOfMoves", array_of_moves);
 
                 //if need to update the subLevel in LevelsFragment
                 if (numberOfElementsInMovesArray != 0) {
@@ -592,8 +593,9 @@ public class SimonLevel extends AppCompatActivity {
                     //load extras
                     resultIntent.putExtra("subLevelSimon", number_of_level - 1); //subLevel stats at 0
                     resultIntent.putExtra("levelSimon", amountOfImageView);
+                    resultIntent.putExtra("getArrayOfMoves", array_of_moves);
                     resultIntent.putExtra("starsSimon", stars());  //change only if user got higher score
-                    resultIntent.putExtra("highScoreSimon", Math.max(incomingScore,currentScore)); //subLevel stats at 0
+                    resultIntent.putExtra("highScoreSimon", incomingScore); //subLevel stats at 0
 
                 } else
                     setResult(RESULT_CANCELED, resultIntent);
