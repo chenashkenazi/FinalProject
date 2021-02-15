@@ -193,8 +193,7 @@ public class SimonLevel extends AppCompatActivity {
                 break;
         }
 
-        //maxLength = (number_of_level + 2) * 3 + 1;
-        maxLength = 3;
+        maxLength = (number_of_level + 2) * 3 + 1;
 
         Simon simon = new Simon(maxLength, amountOfImageView);
 
