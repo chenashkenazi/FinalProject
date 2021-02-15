@@ -193,7 +193,8 @@ public class SimonLevel extends AppCompatActivity {
                 break;
         }
 
-        maxLength = (number_of_level + 2) * 3 + 1;
+        //maxLength = (number_of_level + 2) * 3 + 1;
+        maxLength = 3;
 
         Simon simon = new Simon(maxLength, amountOfImageView);
 
@@ -586,13 +587,13 @@ public class SimonLevel extends AppCompatActivity {
                 resultIntent.putExtra("getArrayOfMoves", array_of_moves);
 
                 //if need to update the subLevel in LevelsFragment
-                if (numberOfElementsInMovesArray != 0) {
+                if (stars()>0) {
                     setResult(RESULT_OK, resultIntent);
 
                     //load extras
                     resultIntent.putExtra("subLevelSimon", number_of_level - 1); //subLevel stats at 0
                     resultIntent.putExtra("levelSimon", amountOfImageView);
-                    resultIntent.putExtra("starsSimon", stars());  //change only if user got higher score
+                    resultIntent.putExtra("starsSimon", Math.max(incomingStars,stars()));  //change only if user got higher score
                     resultIntent.putExtra("highScoreSimon", Math.max(incomingScore,currentScore)); //subLevel stats at 0
 
                 } else
