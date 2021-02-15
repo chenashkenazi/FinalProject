@@ -57,6 +57,15 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="ButtonsCellLand" parent="Button">
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/levels_button_cell_selector</item>
+        <item name="android:fontFamily">@font/fraunces</item>
+        <item name="android:textColor">@color/light_gray_light</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <!--Text Views-->
     <style name="TextView">
         <item name="android:gravity">center</item>
@@ -74,6 +83,18 @@
         <item name="strokeWidth">4dp</item>
     </style>
 
+    <style name="TextViewLevelTitleLand">
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:fontFamily">@font/londrina_solid</item>
+        <item name="android:textColor">@color/light_gray_light</item>
+        <item name="android:shadowColor">@color/grass_darker</item>
+        <item name="android:shadowRadius">15</item>
+        <item name="strokeColor">@color/grass_dark</item>
+        <item name="strokeWidth">4dp</item>
+    </style>
+
     <style name="TextViewRepeat" parent="TextView">
         <item name="android:fontFamily">@font/nerko_one</item>
         <item name="android:textColor">@color/dark_gray_light</item>
@@ -81,6 +102,12 @@
 
     <style name="TextViewScore" parent="TextView">
         <item name="android:textSize">40sp</item>
+        <item name="android:fontFamily">@font/nerko_one</item>
+        <item name="android:textColor">@color/blue_jeans_light</item>
+    </style>
+
+    <style name="TextViewScoreLand" parent="TextView">
+        <item name="android:textSize">30sp</item>
         <item name="android:fontFamily">@font/nerko_one</item>
         <item name="android:textColor">@color/blue_jeans_light</item>
     </style>

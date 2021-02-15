@@ -54,6 +54,7 @@ public class SimonLevel extends AppCompatActivity {
     private ImageButton pause;
     private ImageButton play;
     private FrameLayout pauseLayout;
+    private RelativeLayout backgroundPaused;
 
     private int numberOfElementsInMovesArray = 0; //index of moves the user succeed to make
     private int numberOfClicksEachStage = 0; //index in array_of_moves
@@ -101,18 +102,22 @@ public class SimonLevel extends AppCompatActivity {
         pause = findViewById(R.id.pauseBtn);
         pauseLayout = findViewById(R.id.pauseLayout);
         pauseLayout.setVisibility(View.GONE);
+        backgroundPaused = findViewById(R.id.simon_background_paused);
+        backgroundPaused.setVisibility(View.INVISIBLE);
+
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 numberOfElementsInMovesArray--;
                 pauseLayout.setVisibility(View.VISIBLE);
-
+                backgroundPaused.setVisibility(View.VISIBLE);
             }
         });
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pauseLayout.setVisibility(View.GONE);
+                backgroundPaused.setVisibility(View.INVISIBLE);
                 final Runnable r = new Runnable() {
                     public void run() {
                         playGame();

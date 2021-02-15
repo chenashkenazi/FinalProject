@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/background_light">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:src="@drawable/simon_logo"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"/>
+
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/simon_animation"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/simon_animation"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/btns"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_btn"
+            android:id="@+id/play_btn"
+            style="@style/ButtonMainPlay"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_game_btn"
+            android:id="@+id/reset_game_btn"
+            style="@style/ButtonMainReset"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
