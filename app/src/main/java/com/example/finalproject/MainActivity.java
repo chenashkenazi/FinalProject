@@ -96,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialog, int which) {
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 Toast.makeText(MainActivity.this, R.string.game_restarted, Toast.LENGTH_SHORT).show();
+                for(int i=0;i<levels.length;i++){
+                    for(int j=0;j<SUB_LEVEL_SIZE;j++) {
+                        levels[0].getSubLevels()[j].clearAllLevel();
+                    }
+                    levels[0].clearAllLevel();
+                }
+            } else if (which == DialogInterface.BUTTON_NEGATIVE) {
+                Toast.makeText(MainActivity.this, R.string.game_not_restated, Toast.LENGTH_SHORT).show();
             }
         }
     }

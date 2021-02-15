@@ -80,6 +80,8 @@ public class Level implements Parcelable {
     }
 
 
-
+    protected void clearAllLevel(){
+        this.setOpen(false);
+    }
 
 }

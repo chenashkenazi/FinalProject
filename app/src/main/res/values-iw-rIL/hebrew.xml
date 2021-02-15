@@ -1,21 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.FinalProject" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/grass_light</item>
-        <item name="colorPrimaryVariant">@color/grass_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/aqua_light</item>
-        <item name="colorSecondaryVariant">@color/aqua_dark</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="colorAccent">@color/grass_darker</item>
-        <item name="colorOnBackground">@color/background_light</item>
-        <item name="android:textColorPrimary">@color/black</item>
-    </style>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
 
     <!--Buttons-->
     <style name="Button">
@@ -34,8 +18,7 @@
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
         <item name="android:textColor">@color/light_gray_light</item>
-        <item name="fontFamily">@font/nerko_one</item>
-
+        <item name="fontFamily">@font/secular_one</item>
     </style>
 
     <style name="ButtonMainPlay" parent="ButtonMain">
@@ -48,15 +31,6 @@
         <item name="android:background">@drawable/button_reset_selector</item>
     </style>
 
-    <style name="ButtonsCell" parent="Button">
-        <item name="android:padding">20dp</item>
-        <item name="android:background">@drawable/levels_button_cell_selector</item>
-        <item name="android:fontFamily">@font/fraunces</item>
-        <item name="android:textColor">@color/light_gray_light</item>
-        <item name="elevation">0dp</item>
-        <item name="android:textSize">28sp</item>
-    </style>
-
     <!--Text Views-->
     <style name="TextView">
         <item name="android:gravity">center</item>
@@ -66,7 +40,7 @@
 
     <style name="TextViewLevelTitle" parent="TextView">
         <item name="android:layout_margin">10dp</item>
-        <item name="android:fontFamily">@font/londrina_solid</item>
+        <item name="android:fontFamily">@font/secular_one</item>
         <item name="android:textColor">@color/light_gray_light</item>
         <item name="android:shadowColor">@color/grass_darker</item>
         <item name="android:shadowRadius">15</item>
@@ -75,27 +49,24 @@
     </style>
 
     <style name="TextViewRepeat" parent="TextView">
-        <item name="android:fontFamily">@font/nerko_one</item>
+        <item name="android:fontFamily">@font/m_plus_rounded</item>
         <item name="android:textColor">@color/dark_gray_light</item>
     </style>
 
     <style name="TextViewScore" parent="TextView">
         <item name="android:textSize">40sp</item>
-        <item name="android:fontFamily">@font/nerko_one</item>
+        <item name="android:fontFamily">@font/secular_one</item>
         <item name="android:textColor">@color/blue_jeans_light</item>
     </style>
 
     <style name="TextViewTapToPlay" parent="TextView">
-        <item name="android:fontFamily">@font/nerko_one</item>
+        <item name="android:fontFamily">@font/m_plus_rounded</item>
         <item name="android:textColor">@color/grass_dark</item>
     </style>
 
     <style name="TextViewPause" parent="TextView">
         <item name="android:textSize">60sp</item>
-        <item name="android:fontFamily">@font/nerko_one</item>
+        <item name="android:fontFamily">@font/m_plus_rounded</item>
         <item name="android:textColor">@color/dark_gray_light</item>
     </style>
-
-
 </resources>
-

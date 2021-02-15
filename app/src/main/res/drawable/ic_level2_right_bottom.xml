@@ -9,6 +9,6 @@
         android:translateX="1.4677502">
         <path
             android:pathData="M846.6,509C675.7,776.3 381.6,957.3 44.5,972C20.2,973.1 0,953.8 0,929.6v-887C0,9.8 35.4,-10.6 63.7,5.8L832,449.3C853,461.4 859.6,488.6 846.6,509z"
-            android:fillColor="#D770AD"/>
+            android:fillColor="@color/pink_rose_dark"/>
     </group>
 </vector>

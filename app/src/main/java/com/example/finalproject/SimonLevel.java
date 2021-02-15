@@ -123,6 +123,7 @@ public class SimonLevel extends AppCompatActivity {
         });
 
         score = findViewById(R.id.currentScore);
+        score.setText(currentScore+"");
         bestScore = findViewById(R.id.bestScoreUpdate);
         bestScore.setText(String.valueOf(incomingScore));
 
@@ -187,8 +188,7 @@ public class SimonLevel extends AppCompatActivity {
                 break;
         }
 
-        //maxLength = (number_of_level + 2) * 3 + 1; ////האמיתי!!! לא למחוק!!!
-        maxLength = 1; ////בדיקה!!!!!
+        maxLength = (number_of_level + 2) * 3 + 1;
 
         Simon simon = new Simon(maxLength, amountOfImageView);
 
@@ -304,7 +304,6 @@ public class SimonLevel extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             numberOfElementsInMovesArray--;
                             finishLevel();
-                            finish();
                         }
 
                     });
@@ -328,8 +327,8 @@ public class SimonLevel extends AppCompatActivity {
                     score.setText(String.valueOf(currentScore));
 
                     if (currentScore > incomingScore) {
-                        incomingScore = currentScore;
-                        bestScore.setText(String.valueOf(incomingScore));
+                        //incomingScore = currentScore;
+                        bestScore.setText(String.valueOf(currentScore));
                     }
 
                     final Runnable r = new Runnable() {
@@ -551,6 +550,9 @@ public class SimonLevel extends AppCompatActivity {
     private void clear() {
         numberOfClicksEachStage = 0;
         numberOfElementsInMovesArray = 0;
+        currentScore = 0;
+        score.setText(currentScore+"");
+        bestScore.setText(String.valueOf(incomingScore));
     }
 
     /*defining how many stats user should get*/
@@ -586,7 +588,7 @@ public class SimonLevel extends AppCompatActivity {
                     resultIntent.putExtra("subLevelSimon", number_of_level - 1); //subLevel stats at 0
                     resultIntent.putExtra("levelSimon", amountOfImageView);
                     resultIntent.putExtra("starsSimon", stars());  //change only if user got higher score
-                    resultIntent.putExtra("highScoreSimon", incomingScore); //subLevel stats at 0
+                    resultIntent.putExtra("highScoreSimon", Math.max(incomingScore,currentScore)); //subLevel stats at 0
 
                 } else
                     setResult(RESULT_CANCELED, resultIntent);

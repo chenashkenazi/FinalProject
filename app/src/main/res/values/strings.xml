@@ -13,4 +13,10 @@
     <string name="game_over">GAME OVER</string>
     <string name="replay">REPLAY</string>
     <string name="exit">EXIT</string>
+    <string name="repeat_after_me">Repeat ater me</string>
+    <string name="score">Score:</string>
+    <string name="best_score">"Best score: "</string>
+    <string name="tap_to_play">Tap tp Play</string>
+    <string name="pause">Pause</string>
+    <string name="game_not_restated">game prograss did not restarted</string>
 </resources>

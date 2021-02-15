@@ -69,4 +69,12 @@ public class SubLevel{
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    protected void clearAllLevel(){
+        this.setStars(0);
+        this.setArrayOfMoves(null);
+        this.setHighScore(0);
+        this.setStatus(Status.LOCK);
+        this.setComplete(false);
+    }
 }

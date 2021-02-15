@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
-    android:background="@drawable/simongame_backgroud">
+    android:background="@drawable/game_backgroud">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,21 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="175dp">
+        android:layout_marginTop="180dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="50dp"
-            android:gravity="center"
-            android:textColor="#8B838F"
-            android:text="Repeat after me"
-            android:fontFamily="@font/nerko_one"
+            android:text="@string/repeat_after_me"
+            style="@style/TextViewRepeat"
             android:id="@+id/repeat"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -52,7 +47,8 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:id="@+id/level1_layout"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:layoutDirection="ltr">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +58,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_level1_button_top_left"
+                android:src="@drawable/ic_level1_top_left"
                 android:id="@+id/level1_button_top_left"/>
             <ImageView
                 android:layout_width="100dp"
@@ -98,19 +94,18 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:id="@+id/level2_layout"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:layoutDirection="ltr">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
-
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <ImageView
@@ -132,8 +127,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
-
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <ImageView
@@ -158,8 +152,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-
-
             android:orientation="horizontal">
 
             <ImageView
@@ -186,7 +178,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/level3_layout"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:layoutDirection="ltr">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -286,75 +279,73 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
+        android:layout_above="@+id/bestScoreLayout"
         android:gravity="center"
-         >
-        <TextView
+        android:layout_marginBottom="10dp">
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score: "
-            android:textSize="40dp"
-            android:textColor="@color/blue_jeans_light"
-            android:fontFamily="@font/nerko_one"
-            android:id="@+id/score"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="40dp"
-            android:textColor="@color/blue_jeans_light"            android:layout_toEndOf="@id/score"
-            android:fontFamily="@font/nerko_one"
-            android:id="@+id/currentScore"
-            />
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/score"
+                android:id="@+id/score"
+                style="@style/TextViewScore"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/score"
+                android:id="@+id/currentScore"
+                style="@style/TextViewScore"/>
+
+        </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="550dp"
-        android:gravity="center">
-        <TextView
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bestScoreLayout"
+        android:layout_marginBottom="100dp">
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Best score:"
-            android:textSize="40dp"
-            android:textColor="@color/blue_jeans_light"            android:id="@+id/bestScore"
-            android:fontFamily="@font/nerko_one"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="40dp"
-            android:textColor="@color/blue_jeans_light"
-            android:fontFamily="@font/nerko_one"
-            android:id="@+id/bestScoreUpdate"
-            android:layout_toEndOf="@id/bestScore"
-            />
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/best_score"
+                android:id="@+id/bestScore"
+                style="@style/TextViewScore"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bestScoreUpdate"
+                android:layout_toEndOf="@id/bestScore"
+                style="@style/TextViewScore"/>
+        </RelativeLayout>
     </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pauseLayout">
         <TextView
-
-            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="270dp"
-            android:layout_marginLeft="60dp"
-            android:textSize="50dp"
-            android:textColor="#7DAF45"
-            android:text="Tap to play"
-            android:fontFamily="@font/nerko_one"/>
+            android:text="@string/tap_to_play"
+            style="@style/TextViewTapToPlay"/>
 
         <TextView
-
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="310dp"
-            android:layout_marginLeft="90dp"
-            android:textSize="60dp"
-            android:textColor="#8B838F"
-            android:text="Pause"
-            android:fontFamily="@font/nerko_one"/>
+            android:text="@string/pause"
+            style="@style/TextViewPause"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -367,10 +358,11 @@
     </FrameLayout>
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:src="@drawable/welldone"
+        android:src="@drawable/welldone_animation"
+        android:padding="70dp"
         android:id="@+id/welldone_animation"/>
 
 </RelativeLayout>

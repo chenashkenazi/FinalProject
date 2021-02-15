@@ -74,9 +74,6 @@ public class LevelsFragment extends Fragment {
     private GridView gridView;
     private Level level;
 
-    //Context context;
-    //Communicator communicator;
-
     private final static int SUB_LEVEL_SIZE = 16;
 
 
@@ -136,7 +133,7 @@ public class LevelsFragment extends Fragment {
         //getting measurements to spacing the gridView
         DisplayMetrics displayMetrics = new DisplayMetrics();
         Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        gridView.setVerticalSpacing((displayMetrics.heightPixels)/40);//???????
+        gridView.setVerticalSpacing((displayMetrics.heightPixels)/40);
 
         init();
     }
@@ -185,11 +182,11 @@ public class LevelsFragment extends Fragment {
             levelBtn.setText(String.valueOf(i+1));
 
             //set the grid's display
-            DisplayMetrics displayMetrics = new DisplayMetrics();
+            /*DisplayMetrics displayMetrics = new DisplayMetrics();
             Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             levelBtn.setWidth((displayMetrics.widthPixels)/10);
             levelBtn.setHeight((displayMetrics.heightPixels)/10);
-
+*/
 
             //setting stars
             switch (level.getSubLevels()[i].getStars()){
