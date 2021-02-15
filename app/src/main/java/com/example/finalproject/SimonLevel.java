@@ -91,7 +91,7 @@ public class SimonLevel extends AppCompatActivity {
         number_of_level = incomingIntent.getIntExtra("subLevelNumber", 0) + 1; //number_of_level starts at 0
         incomingStars = incomingIntent.getIntExtra("numberOfStars", 0);
         amountOfImageView = incomingIntent.getIntExtra("levelNumber", 0);
-        incomingScore= incomingIntent.getIntExtra("highScore", 0);
+        incomingScore = incomingIntent.getIntExtra("highScore", 0);
         int[] incomingArrayOfMoves = incomingIntent.getIntArrayExtra("putArrayOfMoves");
 
         wellDoneAnimation = findViewById(R.id.welldone_animation);
@@ -128,7 +128,7 @@ public class SimonLevel extends AppCompatActivity {
         });
 
         score = findViewById(R.id.currentScore);
-        score.setText(currentScore+"");
+        score.setText(currentScore + "");
         bestScore = findViewById(R.id.bestScoreUpdate);
         bestScore.setText(String.valueOf(incomingScore));
 
@@ -328,7 +328,7 @@ public class SimonLevel extends AppCompatActivity {
 
                     numberOfClicksEachStage = 0;
 
-                    currentScore+=numberOfElementsInMovesArray;
+                    currentScore += numberOfElementsInMovesArray;
                     score.setText(String.valueOf(currentScore));
 
                     if (currentScore > incomingScore) {
@@ -556,7 +556,7 @@ public class SimonLevel extends AppCompatActivity {
         numberOfClicksEachStage = 0;
         numberOfElementsInMovesArray = 0;
         currentScore = 0;
-        score.setText(currentScore+"");
+        score.setText(currentScore + "");
         bestScore.setText(String.valueOf(incomingScore));
     }
 
@@ -574,9 +574,10 @@ public class SimonLevel extends AppCompatActivity {
 
     /*finish Level and sending Intent To LevelFragment*/
     private void finishLevel() {
-
-        wellDoneAnimation.setVisibility(View.VISIBLE);
-        wellDoneAnimation.startAnimation(animation);
+        if(numberOfElementsInMovesArray == maxLength) {
+            wellDoneAnimation.setVisibility(View.VISIBLE);
+            wellDoneAnimation.startAnimation(animation);
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -593,7 +594,7 @@ public class SimonLevel extends AppCompatActivity {
                     resultIntent.putExtra("subLevelSimon", number_of_level - 1); //subLevel stats at 0
                     resultIntent.putExtra("levelSimon", amountOfImageView);
                     resultIntent.putExtra("starsSimon", stars());  //change only if user got higher score
-                    resultIntent.putExtra("highScoreSimon", Math.max(incomingScore,currentScore)); //subLevel stats at 0
+                    resultIntent.putExtra("highScoreSimon", Math.max(incomingScore, currentScore)); //subLevel stats at 0
 
                 } else
                     setResult(RESULT_CANCELED, resultIntent);

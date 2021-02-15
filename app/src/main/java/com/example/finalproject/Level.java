@@ -13,10 +13,10 @@ public class Level implements Parcelable {
     private SubLevel[] subLevels;
 
     public Level(int colors) {
-        this(colors,false);
+        this(colors, false);
     }
 
-    public Level(int colors, boolean isOpen){
+    public Level(int colors, boolean isOpen) {
         setColor(colors);
         setOpen(isOpen);
     }
@@ -80,7 +80,7 @@ public class Level implements Parcelable {
     }
 
 
-    protected void clearAllLevel(){
+    protected void clearAllLevel() {
         this.setOpen(false);
     }
 

@@ -77,9 +77,9 @@ public class LevelsFragment extends Fragment {
     private final static int SUB_LEVEL_SIZE = 16;
 
 
-    public static LevelsFragment getInstance(Level level){
+    public static LevelsFragment getInstance(Level level) {
         LevelsFragment fragment = new LevelsFragment();
-        if(level != null) {
+        if (level != null) {
             Bundle bundle = new Bundle();
             bundle.putParcelable("level", level);
             fragment.setArguments(bundle);
@@ -93,7 +93,7 @@ public class LevelsFragment extends Fragment {
         //PreferenceManager.getDefaultSharedPreferences(context);
 
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             level = getArguments().getParcelable("level");
 
             /*SubLevel[] subLevel = new SubLevel[SUB_LEVEL_SIZE];
@@ -120,7 +120,7 @@ public class LevelsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.levels_fragment,container,false);
+        return inflater.inflate(R.layout.levels_fragment, container, false);
     }
 
     @Override
@@ -128,18 +128,18 @@ public class LevelsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         levelNumTv = view.findViewById(R.id.level_title);
-        gridView = (GridView)view.findViewById(R.id.levels_grid_view);
+        gridView = (GridView) view.findViewById(R.id.levels_grid_view);
 
         //getting measurements to spacing the gridView
         DisplayMetrics displayMetrics = new DisplayMetrics();
         Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        gridView.setVerticalSpacing((displayMetrics.heightPixels)/40);
+        gridView.setVerticalSpacing((displayMetrics.heightPixels) / 40);
 
         init();
     }
 
     private void init() {
-        if(level != null){
+        if (level != null) {
             levelNumTv.setText(level.getTitle());
 
             CustomAdapter customAdapter = new CustomAdapter();
@@ -171,15 +171,15 @@ public class LevelsFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            View grid = getLayoutInflater().inflate(R.layout.levels_cell,null);
+            View grid = getLayoutInflater().inflate(R.layout.levels_cell, null);
             //String level_number = String.valueOf(i+1);
 
             Button levelBtn = (Button) grid.findViewById(R.id.level_btn);
-            ImageView star1Iv = (ImageView)grid.findViewById(R.id.first_star);
-            ImageView star2Iv = (ImageView)grid.findViewById(R.id.second_star);
-            ImageView star3Iv = (ImageView)grid.findViewById(R.id.third_star);
+            ImageView star1Iv = (ImageView) grid.findViewById(R.id.first_star);
+            ImageView star2Iv = (ImageView) grid.findViewById(R.id.second_star);
+            ImageView star3Iv = (ImageView) grid.findViewById(R.id.third_star);
 
-            levelBtn.setText(String.valueOf(i+1));
+            levelBtn.setText(String.valueOf(i + 1));
 
             //set the grid's display
             /*DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -189,7 +189,7 @@ public class LevelsFragment extends Fragment {
 */
 
             //setting stars
-            switch (level.getSubLevels()[i].getStars()){
+            switch (level.getSubLevels()[i].getStars()) {
                 case 1:
                     star1Iv.setActivated(true);
                     break;
@@ -211,12 +211,12 @@ public class LevelsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), com.example.finalproject.SimonLevel.class);
-                    intent.putExtra("levelNumber",level.getColor());
-                    intent.putExtra("subLevelNumber",level.getSubLevels()[i].getSubLevelNumber());
-                    intent.putExtra("numberOfStars",level.getSubLevels()[i].getStars());
-                    intent.putExtra("putArrayOfMoves",level.getSubLevels()[i].getArrayOfMoves());
-                    intent.putExtra("highScore",level.getSubLevels()[i].getHighScore());
-                    startActivityForResult(intent,1);
+                    intent.putExtra("levelNumber", level.getColor());
+                    intent.putExtra("subLevelNumber", level.getSubLevels()[i].getSubLevelNumber());
+                    intent.putExtra("numberOfStars", level.getSubLevels()[i].getStars());
+                    intent.putExtra("putArrayOfMoves", level.getSubLevels()[i].getArrayOfMoves());
+                    intent.putExtra("highScore", level.getSubLevels()[i].getHighScore());
+                    startActivityForResult(intent, 1);
                 }
             });
 
@@ -231,10 +231,10 @@ public class LevelsFragment extends Fragment {
     }
 
     /*set button status*/
-    private void setButtonStatus(int i, Button btn){
+    private void setButtonStatus(int i, Button btn) {
         //Log.i(TAG,"setButtonStatus()");
 
-        switch (level.getSubLevels()[i].getStatus()){
+        switch (level.getSubLevels()[i].getStatus()) {
             case LOCK:
                 setLockedButton(btn);
                 break;
@@ -248,19 +248,19 @@ public class LevelsFragment extends Fragment {
     }
 
     /*set next button*/
-    private void setNextButton(Button btn){
+    private void setNextButton(Button btn) {
         btn.setEnabled(true); //clickable
         btn.setActivated(true); //next
     }
 
     /*set completed button*/
-    private void setCompletedButton(Button btn){
+    private void setCompletedButton(Button btn) {
         btn.setActivated(false); //not next
         btn.setSelected(true); //completed
     }
 
     /*set locked button*/
-    private void setLockedButton(Button btn){
+    private void setLockedButton(Button btn) {
         btn.setEnabled(false);
     }
 
@@ -303,5 +303,4 @@ public class LevelsFragment extends Fragment {
         }
         init();
     }
-
 }
